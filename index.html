@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Lab Project Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: #2a3045;
+    --accent1: #4f8ef7;
+    --accent2: #f7c948;
+    --accent3: #4fca7a;
+    --accent4: #e06bff;
+    --accent5: #ff7c4f;
+    --text: #e8eaf0;
+    --muted: #7a84a0;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── TAB NAV ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .tab {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .tab:hover { color: var(--text); background: var(--surface2); }
+  .tab.active { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── SHARED HEADER ── */
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .page-header .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .page-header p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── HARDWARE COST SECTION ── */
+  .hw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media(max-width:640px){ .hw-grid { grid-template-columns: 1fr; } }
+
+  .hw-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .hw-card-header {
+    padding: 16px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hw-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    background: color-mix(in srgb, var(--card-color) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-color) 30%, transparent);
+    flex-shrink: 0;
+  }
+  .hw-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .hw-sub { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .hw-price-tag {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--card-color);
+    white-space: nowrap;
+  }
+  .hw-items { padding: 14px 20px; }
+  .hw-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .hw-item:last-child { border-bottom: none; }
+  .hw-item-name { font-size: 12px; color: var(--text); }
+  .hw-item-detail { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+  .hw-item-price { font-size: 12px; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+
+  /* Total banner */
+  .total-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .total-left {}
+  .total-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+  .total-amount { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; color: var(--accent3); }
+  .total-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .total-breakdown {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .total-item { text-align: center; }
+  .total-item-amount { font-size: 16px; font-weight: 600; font-family: var(--mono); }
+  .total-item-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── WIRING DIAGRAM ── */
+  .wiring-section { margin-top: 8px; }
+  .wiring-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .diagram-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    overflow-x: auto;
+  }
+
+  svg.network-diagram {
+    width: 100%;
+    max-width: 900px;
+    display: block;
+    margin: 0 auto;
+    font-family: var(--mono);
+  }
+
+  /* Legend */
+  .legend {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 4px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend-line {
+    width: 28px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  /* ── PROJECTS PANEL ── */
+  .foundation {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 24px;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .foundation-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .foundation-items { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+  .foundation-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .foundation-pill span { color: var(--accent1); margin-right: 5px; }
+
+  .projects { display: grid; gap: 24px; }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: var(--card-accent); }
+
+  .card-header {
+    padding: 22px 26px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px; flex-shrink: 0;
+    background: color-mix(in srgb, var(--card-accent) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 30%, transparent);
+  }
+  .card-meta { flex: 1; }
+  .card-number { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--card-accent); text-transform: uppercase; margin-bottom: 3px; }
+  .card-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 5px; }
+  .card-subtitle { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .difficulty-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    background: color-mix(in srgb, var(--card-accent) 12%, transparent);
+    color: var(--card-accent);
+    border: 1px solid color-mix(in srgb, var(--card-accent) 25%, transparent);
+  }
+
+  .card-body {
+    padding: 22px 26px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  @media(max-width:640px){ .card-body { grid-template-columns: 1fr; } }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .arch-flow { display: flex; flex-direction: column; gap: 5px; }
+  .arch-node {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 11px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .arch-node .node-label { font-family: var(--mono); color: var(--card-accent); font-size: 10px; min-width: 48px; }
+  .arch-node .node-desc { color: var(--text); font-size: 12px; }
+  .arch-arrow { text-align: center; color: var(--border); font-size: 13px; line-height: 1; padding: 1px 0; }
+
+  .phases { display: flex; flex-direction: column; gap: 7px; }
+  .phase { display: flex; gap: 10px; align-items: flex-start; }
+  .phase-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--card-accent) 20%, transparent);
+    border: 2px solid var(--card-accent);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-family: var(--mono);
+    color: var(--card-accent);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .phase-title { font-size: 12px; font-weight: 600; margin-bottom: 1px; }
+  .phase-detail { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  .stack-section {
+    padding: 14px 26px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .stack-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+  .stack-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* Timeline */
+  .timeline-section { margin-top: 40px; }
+  .timeline-header { text-align: center; margin-bottom: 24px; }
+  .timeline-header h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .timeline-header p { font-size: 13px; color: var(--muted); }
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  @media(max-width:700px){ .timeline-grid { grid-template-columns: 1fr 1fr; } }
+  .timeline-phase { background: var(--surface); padding: 18px 14px; }
+  .timeline-phase-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 3px; }
+  .timeline-phase-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .timeline-item { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 7px; }
+  .timeline-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .timeline-item-text { font-size: 11px; color: var(--muted); line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">Home Lab · Complete Setup Guide</div>
+  <h1>Hardware, Costs & Wiring</h1>
+  <p>Everything you need to build your personal AI infrastructure — priced, diagrammed, and planned.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('hardware')">💰 Hardware & Cost</button>
+  <button class="tab" onclick="switchTab('wiring')">🔌 Wiring Diagram</button>
+  <button class="tab" onclick="switchTab('purchase')">🛒 Purchase Order</button>
+  <button class="tab" onclick="switchTab('storage')">🏠 Storage Ideas</button>
+  <button class="tab" onclick="switchTab('projects')">🗂 Project Roadmap</button>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 1: HARDWARE & COST
+═══════════════════════════════════════════ -->
+<div id="panel-hardware" class="panel active">
+
+  <div class="hw-grid">
+
+    <!-- MacBook Pro -->
+    <div class="hw-card" style="--card-color: #4f8ef7;">
+      <div class="hw-card-header">
+        <div class="hw-icon" style="--card-color:#4f8ef7">💻</div>
+        <div>
+          <div class="hw-title">MacBook Pro 14"</div>
+          <div class="hw-sub">M5 Pro · 18-core CPU · 20-core GPU</div>
+        </div>
+        <div class="hw-price-tag">$3,999</div>
+      </div>
+      <div class="hw-items">
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">M5 Pro chip</div>
+            <div class="hw-item-detail">18-core CPU / 20-core GPU</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">64GB unified memory</div>
+            <div class="hw-item-detail">runs 70B models comfortably</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">2TB SSD storage</div>
+            <div class="hw-item-detail">space for multiple large models</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Apple.com retail price</div>
+            <div class="hw-item-detail">BTO config · ships direct</div>
+          </div>
+          <div class="hw-item-price" style="color:#4f8ef7">$3,999</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mac Mini -->
+    <div class="hw-card" style="--card-color: #4fca7a;">
+      <div class="hw-card-header">
+        <div class="hw-icon" style="--card-color:#4fca7a">🖥️</div>
+        <div>
+          <div class="hw-title">Mac Mini M4 Pro</div>
+          <div class="hw-sub">Always-on AI server · 64GB</div>
+        </div>
+        <div class="hw-price-tag">~$2,000</div>
+      </div>
+      <div class="hw-items">
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">M4 Pro chip</div>
+            <div class="hw-item-detail">14-core CPU / 20-core GPU</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">64GB unified memory</div>
+            <div class="hw-item-detail">most recommended LLM config</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">512GB–2TB SSD</div>
+            <div class="hw-item-detail">base 512GB, upgrade optional</div>
+          </div>
+          <div class="hw-item-price">included</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">⚠️ Stock note</div>
+            <div class="hw-item-detail">64GB configs limited as of Jun 2026 — check Apple.com</div>
+          </div>
+          <div class="hw-item-price" style="color:#4fca7a">~$2,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAS -->
+    <div class="hw-card" style="--card-color: #f7c948;">
+      <div class="hw-card-header">
+        <div class="hw-icon" style="--card-color:#f7c948">🗄️</div>
+        <div>
+          <div class="hw-title">Synology DS423+</div>
+          <div class="hw-sub">4-bay NAS · diskless</div>
+        </div>
+        <div class="hw-price-tag">~$800</div>
+      </div>
+      <div class="hw-items">
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">DS423+ enclosure (diskless)</div>
+            <div class="hw-item-detail">Intel J4125 · 2GB RAM · 4-bay</div>
+          </div>
+          <div class="hw-item-price">~$499</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">4× Seagate IronWolf 4TB</div>
+            <div class="hw-item-detail">NAS-rated drives · RAID-ready</div>
+          </div>
+          <div class="hw-item-price">~$75 ea / ~$300</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Usable storage (SHR RAID)</div>
+            <div class="hw-item-detail">~12TB usable with 1-drive redundancy</div>
+          </div>
+          <div class="hw-item-price">—</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">NAS + drives total</div>
+            <div class="hw-item-detail">upgrade drives to 8TB for more space</div>
+          </div>
+          <div class="hw-item-price" style="color:#f7c948">~$800</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Networking -->
+    <div class="hw-card" style="--card-color: #e06bff;">
+      <div class="hw-card-header">
+        <div class="hw-icon" style="--card-color:#e06bff">🌐</div>
+        <div>
+          <div class="hw-title">Networking</div>
+          <div class="hw-sub">Router · Switch · Cables</div>
+        </div>
+        <div class="hw-price-tag">~$130</div>
+      </div>
+      <div class="hw-items">
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">TP-Link 8-port 2.5G switch</div>
+            <div class="hw-item-detail">TL-SG105-M2 · fanless · plug & play</div>
+          </div>
+          <div class="hw-item-price">~$40</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Cat6 Ethernet cables (×4)</div>
+            <div class="hw-item-detail">6ft runs — Mini, NAS, router, spare</div>
+          </div>
+          <div class="hw-item-price">~$20</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Router (if needed)</div>
+            <div class="hw-item-detail">WiFi 6/7 — use existing if available</div>
+          </div>
+          <div class="hw-item-price">$70–$200</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Networking subtotal</div>
+            <div class="hw-item-detail">switch + cables only if router exists</div>
+          </div>
+          <div class="hw-item-price" style="color:#e06bff">~$60–130</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accessories -->
+    <div class="hw-card" style="--card-color: #ff7c4f;" style="grid-column: span 2;">
+      <div class="hw-card-header">
+        <div class="hw-icon" style="--card-color:#ff7c4f">🔌</div>
+        <div>
+          <div class="hw-title">Accessories & Optional Extras</div>
+          <div class="hw-sub">Display · UPS · Peripherals</div>
+        </div>
+        <div class="hw-price-tag">~$200–400</div>
+      </div>
+      <div class="hw-items">
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">Monitor for Mac Mini (optional)</div>
+            <div class="hw-item-detail">any HDMI/TB monitor works — not required for headless server use</div>
+          </div>
+          <div class="hw-item-price">$150–$600</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">UPS (battery backup)</div>
+            <div class="hw-item-detail">APC BE600M1 — protects Mini + NAS from power loss · highly recommended</div>
+          </div>
+          <div class="hw-item-price">~$70</div>
+        </div>
+        <div class="hw-item">
+          <div>
+            <div class="hw-item-name">USB hub / keyboard (setup only)</div>
+            <div class="hw-item-detail">needed for initial Mac Mini config, then headless via SSH/VNC</div>
+          </div>
+          <div class="hw-item-price">~$30</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOTAL -->
+  <div class="total-banner">
+    <div class="total-left">
+      <div class="total-label">Estimated Total Investment</div>
+      <div class="total-amount">~$7,000</div>
+      <div class="total-note">Prices current as of June 2026 · subject to availability · Mac Mini 64GB stock limited</div>
+    </div>
+    <div class="total-breakdown">
+      <div class="total-item">
+        <div class="total-item-amount" style="color:#4f8ef7">$3,999</div>
+        <div class="total-item-label">MacBook Pro</div>
+      </div>
+      <div class="total-item">
+        <div class="total-item-amount" style="color:#4fca7a">~$2,000</div>
+        <div class="total-item-label">Mac Mini</div>
+      </div>
+      <div class="total-item">
+        <div class="total-item-amount" style="color:#f7c948">~$800</div>
+        <div class="total-item-label">NAS + Drives</div>
+      </div>
+      <div class="total-item">
+        <div class="total-item-amount" style="color:#e06bff">~$200</div>
+        <div class="total-item-label">Network + Extras</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVE NOTE -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:13px;color:var(--muted);line-height:1.6;">
+    💡 <strong style="color:var(--text)">Ways to reduce cost:</strong> The Mac Mini 64GB is the highest-ROI item — if budget is tight, the Mac Mini 48GB (~$1,400) still handles 70B models with Q3 quantization. You can also start with 2× 8TB drives (~$250/pair) in the NAS instead of 4×4TB for similar usable storage at lower cost. The MacBook Pro is full price with no standard discounts, but education pricing saves ~$200 if eligible.
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 2: WIRING DIAGRAM
+═══════════════════════════════════════════ -->
+<div id="panel-wiring" class="panel">
+  <div class="wiring-section">
+    <div class="wiring-label">Network & Physical Connection Diagram</div>
+    <div class="diagram-wrap">
+      <svg class="network-diagram" viewBox="0 0 860 580" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr-eth" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4f8ef7" opacity="0.8"/>
+          </marker>
+          <marker id="arr-tb" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4fca7a" opacity="0.8"/>
+          </marker>
+          <marker id="arr-usb" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#f7c948" opacity="0.8"/>
+          </marker>
+          <marker id="arr-wifi" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#e06bff" opacity="0.8"/>
+          </marker>
+          <marker id="arr-tail" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#ff7c4f" opacity="0.8"/>
+          </marker>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+
+        <!-- ─── INTERNET / ISP ─── -->
+        <rect x="340" y="18" width="180" height="52" rx="10" fill="#1e2333" stroke="#2a3045" stroke-width="1.5"/>
+        <text x="430" y="40" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">INTERNET / ISP</text>
+        <text x="430" y="58" fill="#e8eaf0" font-size="12" text-anchor="middle" font-weight="600">Modem / Gateway</text>
+
+        <!-- ─── ROUTER ─── -->
+        <rect x="330" y="120" width="200" height="56" rx="10" fill="#1e2333" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="430" y="141" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">WIFI 6/7</text>
+        <text x="430" y="159" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="600">Router</text>
+        <text x="430" y="171" fill="#4f8ef7" font-size="10" text-anchor="middle">WAN · LAN · Wireless AP</text>
+
+        <!-- ISP → Router -->
+        <line x1="430" y1="70" x2="430" y2="118" stroke="#4f8ef7" stroke-width="2" stroke-dasharray="none" marker-end="url(#arr-eth)" opacity="0.7"/>
+        <text x="438" y="97" fill="#4f8ef7" font-size="10">WAN</text>
+
+        <!-- ─── SWITCH ─── -->
+        <rect x="330" y="234" width="200" height="52" rx="10" fill="#1e2333" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="430" y="254" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">2.5G ETHERNET</text>
+        <text x="430" y="272" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="600">TP-Link 5-Port Switch</text>
+        <text x="430" y="282" fill="#4f8ef7" font-size="10" text-anchor="middle">~$40</text>
+
+        <!-- Router → Switch -->
+        <line x1="430" y1="176" x2="430" y2="232" stroke="#4f8ef7" stroke-width="2" marker-end="url(#arr-eth)" opacity="0.7"/>
+        <text x="438" y="207" fill="#4f8ef7" font-size="10">LAN</text>
+
+        <!-- ─── MAC MINI ─── -->
+        <rect x="60" y="360" width="190" height="72" rx="12" fill="#1e2333" stroke="#4fca7a" stroke-width="2"/>
+        <text x="155" y="381" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">ALWAYS-ON SERVER</text>
+        <text x="155" y="399" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="700">Mac Mini M4 Pro</text>
+        <text x="155" y="413" fill="#4fca7a" font-size="11" text-anchor="middle">64GB · Ollama · Docker</text>
+        <text x="155" y="425" fill="#7a84a0" font-size="10" text-anchor="middle">~$2,000</text>
+
+        <!-- Switch → Mac Mini (Ethernet) -->
+        <path d="M 360 286 L 200 340 L 200 358" stroke="#4f8ef7" stroke-width="2" fill="none" marker-end="url(#arr-eth)" opacity="0.7"/>
+        <text x="258" y="325" fill="#4f8ef7" font-size="10" transform="rotate(-20,258,325)">Ethernet</text>
+
+        <!-- ─── NAS ─── -->
+        <rect x="335" y="360" width="190" height="72" rx="12" fill="#1e2333" stroke="#f7c948" stroke-width="2"/>
+        <text x="430" y="381" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">STORAGE</text>
+        <text x="430" y="399" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="700">Synology DS423+</text>
+        <text x="430" y="413" fill="#f7c948" font-size="11" text-anchor="middle">4× 4TB IronWolf · ~12TB</text>
+        <text x="430" y="425" fill="#7a84a0" font-size="10" text-anchor="middle">~$800</text>
+
+        <!-- Switch → NAS (Ethernet) -->
+        <line x1="430" y1="286" x2="430" y2="358" stroke="#4f8ef7" stroke-width="2" marker-end="url(#arr-eth)" opacity="0.7"/>
+        <text x="438" y="325" fill="#4f8ef7" font-size="10">Ethernet</text>
+
+        <!-- ─── MacBook Pro ─── -->
+        <rect x="610" y="360" width="200" height="72" rx="12" fill="#1e2333" stroke="#4f8ef7" stroke-width="2"/>
+        <text x="710" y="381" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">DAILY DRIVER</text>
+        <text x="710" y="399" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="700">MacBook Pro 14"</text>
+        <text x="710" y="413" fill="#4f8ef7" font-size="11" text-anchor="middle">M5 Pro · 64GB · WiFi 7</text>
+        <text x="710" y="425" fill="#7a84a0" font-size="10" text-anchor="middle">$3,999</text>
+
+        <!-- Router → MacBook (WiFi arc) -->
+        <path d="M 530 148 Q 720 110 710 358" stroke="#e06bff" stroke-width="2" fill="none" stroke-dasharray="6,4" marker-end="url(#arr-wifi)" opacity="0.8"/>
+        <text x="680" y="240" fill="#e06bff" font-size="10" transform="rotate(87,680,240)">WiFi 7</text>
+
+        <!-- Mac Mini ↔ NAS (SMB/NFS) -->
+        <path d="M 250 396 L 333 396" stroke="#f7c948" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-usb)" opacity="0.8"/>
+        <text x="278" y="388" fill="#f7c948" font-size="10">SMB / NFS</text>
+
+        <!-- ─── UPS ─── -->
+        <rect x="60" y="488" width="190" height="50" rx="10" fill="#1e2333" stroke="#ff7c4f" stroke-width="1.5"/>
+        <text x="155" y="508" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">POWER BACKUP</text>
+        <text x="155" y="526" fill="#e8eaf0" font-size="12" text-anchor="middle" font-weight="600">APC UPS BE600M1 · ~$70</text>
+
+        <!-- UPS → Mac Mini -->
+        <line x1="155" y1="488" x2="155" y2="432" stroke="#ff7c4f" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-tail)" opacity="0.7"/>
+        <text x="163" y="463" fill="#ff7c4f" font-size="10">AC Power</text>
+
+        <!-- NAS UPS line -->
+        <rect x="335" y="488" width="190" height="50" rx="10" fill="#1e2333" stroke="#ff7c4f" stroke-width="1.5"/>
+        <text x="430" y="508" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">POWER BACKUP</text>
+        <text x="430" y="526" fill="#e8eaf0" font-size="12" text-anchor="middle" font-weight="600">APC UPS (shared) · ~$70</text>
+        <line x1="430" y1="488" x2="430" y2="432" stroke="#ff7c4f" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-tail)" opacity="0.7"/>
+
+        <!-- ─── PHONES / MOBILE ─── -->
+        <rect x="610" y="488" width="200" height="50" rx="10" fill="#1e2333" stroke="#e06bff" stroke-width="1.5"/>
+        <text x="710" y="508" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">MOBILE CLIENTS</text>
+        <text x="710" y="526" fill="#e8eaf0" font-size="12" text-anchor="middle" font-weight="600">iPhones · iPads · Family</text>
+
+        <!-- MacBook → Phones (WiFi note) -->
+        <line x1="710" y1="488" x2="710" y2="432" stroke="#e06bff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-wifi)" opacity="0.7"/>
+        <text x="718" y="463" fill="#e06bff" font-size="10">WiFi 7</text>
+
+        <!-- ─── TAILSCALE REMOTE ─── -->
+        <rect x="60" y="158" width="160" height="46" rx="9" fill="#1e2333" stroke="#ff7c4f" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="140" y="177" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">REMOTE ACCESS</text>
+        <text x="140" y="195" fill="#e8eaf0" font-size="12" text-anchor="middle" font-weight="600">Tailscale VPN</text>
+
+        <!-- Tailscale arc to MacBook -->
+        <path d="M 220 181 Q 430 60 610 381" stroke="#ff7c4f" stroke-width="1.5" fill="none" stroke-dasharray="6,4" opacity="0.5"/>
+        <text x="380" y="80" fill="#ff7c4f" font-size="10">Encrypted tunnel (anywhere)</text>
+
+        <!-- Tailscale to Mini -->
+        <path d="M 155 204 L 155 358" stroke="#ff7c4f" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-tail)" opacity="0.6"/>
+
+      </svg>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-item"><div class="legend-line" style="background:#4f8ef7"></div> Ethernet (wired)</div>
+        <div class="legend-item"><div class="legend-line" style="background:#e06bff;border-top:2px dashed #e06bff;background:none"></div><div style="width:28px;height:2px;border-top:2px dashed #e06bff"></div>&nbsp;WiFi 7 (wireless)</div>
+        <div class="legend-item"><div style="width:28px;height:2px;border-top:2px dashed #f7c948"></div>&nbsp;NAS file sharing (SMB)</div>
+        <div class="legend-item"><div style="width:28px;height:2px;border-top:2px dashed #ff7c4f"></div>&nbsp;Tailscale / Power</div>
+        <div class="legend-item"><div class="legend-line" style="background:#ff7c4f;opacity:0.6"></div> AC Power</div>
+      </div>
+    </div>
+
+    <!-- Port reference -->
+    <div style="margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;">
+      <div class="section-label" style="margin-bottom:14px">Port & Cable Reference</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div>
+          <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#4fca7a">Mac Mini M4 Pro</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.8">
+            3× Thunderbolt 5 (rear)<br>
+            1× HDMI 2.1 (rear)<br>
+            1× Gigabit Ethernet (rear)<br>
+            2× USB-C (front)<br>
+            3.5mm headphone (front)
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#f7c948">Synology DS423+</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.8">
+            2× RJ45 1GbE (rear)<br>
+            2× USB 3.2 Type-A (rear)<br>
+            2× M.2 NVMe slots (cache)<br>
+            4× 3.5" SATA drive bays<br>
+            Kensington Lock slot
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#4f8ef7">MacBook Pro 14"</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.8">
+            3× Thunderbolt 5<br>
+            1× HDMI 2.1<br>
+            1× SDXC card slot<br>
+            1× MagSafe 3 charging<br>
+            3.5mm headphone jack
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 3: PURCHASE ORDER
+═══════════════════════════════════════════ -->
+<div id="panel-purchase" class="panel">
+
+  <div style="margin-bottom:28px;">
+    <div class="page-header" style="margin-bottom:24px;">
+      <div class="eyebrow">Buy in this order</div>
+      <h1 style="font-size:28px;">Purchase Ranking</h1>
+      <p>Each device unlocks value immediately — don't wait for the full setup to start getting use out of your investment.</p>
+    </div>
+  </div>
+
+  <!-- Rank cards -->
+  <div style="display:flex;flex-direction:column;gap:16px;">
+
+    <!-- #1 MacBook Pro -->
+    <div style="background:var(--surface);border:1px solid #4f8ef7;border-radius:16px;overflow:hidden;">
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <div style="background:#4f8ef7;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">BUY</div>
+          <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">#1</div>
+        </div>
+        <div style="padding:20px 24px;flex:1;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:#4f8ef7;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">💻 Daily Driver</div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">MacBook Pro 14" M5 Pro 64GB</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;">Buy this first — it's your daily driver regardless of everything else. You can run Ollama, pull models, and start building immediately while the rest of the setup arrives. Nothing else depends on it, but it delivers value from day one.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#4f8ef7;">$3,999</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;">Apple.com · ships fast</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+            <div style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4f8ef7;">✓ Immediate LLM use</div>
+            <div style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4f8ef7;">✓ 64GB runs 70B models</div>
+            <div style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4f8ef7;">✓ Works standalone</div>
+            <div style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4f8ef7;">✓ Portable AI anywhere</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #2 Mac Mini -->
+    <div style="background:var(--surface);border:1px solid #4fca7a;border-radius:16px;overflow:hidden;">
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <div style="background:#4fca7a;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">BUY</div>
+          <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">#2</div>
+        </div>
+        <div style="padding:20px 24px;flex:1;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:#4fca7a;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">🖥️ Always-On Server</div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Mac Mini M4 Pro 64GB</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;">Order this as soon as possible — 64GB configs have limited stock as of June 2026. This is the backbone of all 5 projects. Once it arrives, start building while waiting on the NAS. Pair it with networking gear in the same order.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#4fca7a;">~$2,000</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;">⚠️ Stock limited — check Apple.com</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+            <div style="background:rgba(79,202,122,0.1);border:1px solid rgba(79,202,122,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4fca7a;">✓ Powers all 5 projects</div>
+            <div style="background:rgba(79,202,122,0.1);border:1px solid rgba(79,202,122,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4fca7a;">✓ 24/7 always-on server</div>
+            <div style="background:rgba(79,202,122,0.1);border:1px solid rgba(79,202,122,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4fca7a;">⚠️ Limited 64GB stock</div>
+            <div style="background:rgba(79,202,122,0.1);border:1px solid rgba(79,202,122,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#4fca7a;">✓ Order with networking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #3 Networking -->
+    <div style="background:var(--surface);border:1px solid #e06bff;border-radius:16px;overflow:hidden;">
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <div style="background:#e06bff;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">BUY</div>
+          <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">#3</div>
+        </div>
+        <div style="padding:20px 24px;flex:1;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:#e06bff;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">🌐 Networking</div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Switch + Cables + Tailscale</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;">Order alongside the Mac Mini — cheap and must be in place before the Mini and NAS go live. The TP-Link 2.5G switch, Cat6 cables, and Tailscale (free) form the networking backbone everything runs on. Don't skip the switch even if you have router ports — dedicated switching improves NAS transfer speeds significantly.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#e06bff;">~$60</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;">Switch + cables · Tailscale free</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+            <div style="background:rgba(224,107,255,0.1);border:1px solid rgba(224,107,255,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#e06bff;">✓ TP-Link 2.5G switch ~$40</div>
+            <div style="background:rgba(224,107,255,0.1);border:1px solid rgba(224,107,255,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#e06bff;">✓ 4× Cat6 cables ~$20</div>
+            <div style="background:rgba(224,107,255,0.1);border:1px solid rgba(224,107,255,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#e06bff;">✓ Tailscale VPN — free</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #4 NAS -->
+    <div style="background:var(--surface);border:1px solid #f7c948;border-radius:16px;overflow:hidden;">
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <div style="background:#f7c948;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(0,0,0,0.5);letter-spacing:0.1em;">BUY</div>
+          <div style="font-size:32px;font-weight:800;color:#111;line-height:1;">#4</div>
+        </div>
+        <div style="padding:20px 24px;flex:1;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:#f7c948;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">🗄️ Storage</div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Synology DS423+ + 4× IronWolf 4TB</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;">Third priority — none of the AI projects strictly need the NAS on day one. Your MacBook Pro's 2TB holds models and temporary data while you get it set up at your own pace. That said, don't wait too long — the photo/video library project depends on it, and it's the backbone of long-term data safety for the whole setup.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#f7c948;">~$800</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;">DS423+ ~$499 + drives ~$300</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+            <div style="background:rgba(247,201,72,0.1);border:1px solid rgba(247,201,72,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#f7c948;">✓ ~12TB usable (RAID)</div>
+            <div style="background:rgba(247,201,72,0.1);border:1px solid rgba(247,201,72,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#f7c948;">✓ Synology Photos included</div>
+            <div style="background:rgba(247,201,72,0.1);border:1px solid rgba(247,201,72,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#f7c948;">✓ Not urgent for AI projects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #5 UPS -->
+    <div style="background:var(--surface);border:1px solid #ff7c4f;border-radius:16px;overflow:hidden;">
+      <div style="display:flex;align-items:stretch;gap:0;">
+        <div style="background:#ff7c4f;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">BUY</div>
+          <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">#5</div>
+        </div>
+        <div style="padding:20px 24px;flex:1;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;color:#ff7c4f;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">🔌 Power Protection</div>
+              <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">APC UPS BE600M1 (×1 or ×2)</div>
+              <div style="font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;">Buy before you put any real data on the NAS. A sudden power loss mid-write to a NAS can corrupt the filesystem — the UPS gives the Mini and NAS 5–10 minutes to shut down cleanly. It also protects against power surges that could damage your hardware. At $70 it's cheap insurance for a $7,000 setup.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:#ff7c4f;">~$70</div>
+              <div style="font-size:11px;color:var(--muted);margin-top:2px;">APC BE600M1 · Amazon</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;">
+            <div style="background:rgba(255,124,79,0.1);border:1px solid rgba(255,124,79,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#ff7c4f;">✓ Protects NAS filesystem</div>
+            <div style="background:rgba(255,124,79,0.1);border:1px solid rgba(255,124,79,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#ff7c4f;">✓ Surge protection</div>
+            <div style="background:rgba(255,124,79,0.1);border:1px solid rgba(255,124,79,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#ff7c4f;">✓ ~10 min graceful shutdown</div>
+            <div style="background:rgba(255,124,79,0.1);border:1px solid rgba(255,124,79,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#ff7c4f;">✓ Cheap for what it protects</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Purchase timeline -->
+  <div style="margin-top:32px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;">
+    <div class="section-label" style="margin-bottom:16px;">Suggested Purchase Timeline</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:10px;overflow:hidden;">
+      <div style="background:var(--surface2);padding:16px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;">Day 1</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Order Today</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">MacBook Pro 14"<br>Mac Mini M4 Pro 64GB<br>TP-Link switch + Cat6 cables<br>Tailscale (free — install now)</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;">Week 1–2</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;">When Devices Arrive</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">Set up MacBook + Ollama<br>Connect Mac Mini to network<br>Install Docker + Open WebUI<br>Pull first 70B model</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;">Week 2–4</div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Complete the Setup</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">Order Synology DS423+<br>Order 4× IronWolf drives<br>Order APC UPS<br>Mount and cable everything</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TAB 4: STORAGE IDEAS
+═══════════════════════════════════════════ -->
+<div id="panel-storage" class="panel">
+
+  <div style="margin-bottom:28px;">
+    <div class="page-header" style="margin-bottom:24px;">
+      <div class="eyebrow">Physical Setup</div>
+      <h1 style="font-size:28px;">Where to Put Everything</h1>
+      <p>The Mac Mini is 5×5", the DS423+ is roughly the size of a hardback book. Together they fit almost anywhere — here are the best options.</p>
+    </div>
+  </div>
+
+  <!-- Option cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+
+    <!-- Option 1 -->
+    <div style="background:var(--surface);border:1px solid #4fca7a;border-radius:14px;overflow:hidden;">
+      <div style="background:rgba(79,202,122,0.08);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div style="font-size:22px;">🏆</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;color:#4fca7a;letter-spacing:0.12em;text-transform:uppercase;">Best Option</div>
+          <div style="font-size:15px;font-weight:700;">Dedicated Network Closet</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">Utility closet, coat closet, or any closet near your router. Mount a small wall shelf or 6U rack — Mini, NAS, switch, and UPS all together. Run Ethernet through the wall or along baseboards. Completely hidden, quiet, zero desk clutter.</div>
+        <div style="font-size:12px;color:var(--muted);">
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4fca7a;">✓</span> Completely out of sight</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4fca7a;">✓</span> All gear centralized in one spot</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4fca7a;">✓</span> Natural airflow in open closet</div>
+          <div style="display:flex;gap:8px;"><span style="color:#4fca7a;">✓</span> Easy Ethernet routing to rooms</div>
+        </div>
+        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:8px;font-size:11px;color:var(--muted);font-family:var(--mono);">
+          StarTech 6U wall rack ~$80<br>
+          Shelf tray for Mini ~$25<br>
+          Velcro cable ties ~$10
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 2 -->
+    <div style="background:var(--surface);border:1px solid #4f8ef7;border-radius:14px;overflow:hidden;">
+      <div style="background:rgba(79,142,247,0.08);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div style="font-size:22px;">🧱</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;color:#4f8ef7;letter-spacing:0.12em;text-transform:uppercase;">Clean Look</div>
+          <div style="font-size:15px;font-weight:700;">Wall-Mount Open Rack</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A 6U or 9U open wall-mount rack holds everything neatly on a wall — Mini on a shelf tray, NAS in a rack tray, switch below. Looks intentional and "homelab" without being an eyesore. Good for a home office wall, garage, or laundry room.</div>
+        <div style="font-size:12px;color:var(--muted);">
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4f8ef7;">✓</span> Looks intentional and clean</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4f8ef7;">✓</span> Easy physical access</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#4f8ef7;">✓</span> Great airflow</div>
+          <div style="display:flex;gap:8px;"><span style="color:#4f8ef7;">✓</span> Scalable — add gear later</div>
+        </div>
+        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:8px;font-size:11px;color:var(--muted);font-family:var(--mono);">
+          6U open wall rack ~$80–120<br>
+          Rackmount shelf tray ~$25<br>
+          1U patch panel (optional) ~$20
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 3 -->
+    <div style="background:var(--surface);border:1px solid #f7c948;border-radius:14px;overflow:hidden;">
+      <div style="background:rgba(247,201,72,0.08);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div style="font-size:22px;">🖥️</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;color:#f7c948;letter-spacing:0.12em;text-transform:uppercase;">Simple</div>
+          <div style="font-size:15px;font-weight:700;">Desk Shelf / Under-Desk</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">The Mac Mini is only 5×5" — it disappears under a monitor or on a shelf. The DS423+ fits on a dedicated shelf below a desk. Not as clean as a closet setup but totally workable if you want quick physical access without any mounting.</div>
+        <div style="font-size:12px;color:var(--muted);">
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#f7c948;">✓</span> Zero installation required</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#f7c948;">✓</span> Easy access to ports</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#f7c948;">⚠</span> Cables can get messy</div>
+          <div style="display:flex;gap:8px;"><span style="color:#f7c948;">⚠</span> NAS drive noise audible nearby</div>
+        </div>
+        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:8px;font-size:11px;color:var(--muted);font-family:var(--mono);">
+          Monitor riser/stand with shelf ~$30<br>
+          Cable management raceway ~$15<br>
+          Velcro ties ~$10
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 4 -->
+    <div style="background:var(--surface);border:1px solid #e06bff;border-radius:14px;overflow:hidden;">
+      <div style="background:rgba(224,107,255,0.08);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+        <div style="font-size:22px;">📺</div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;color:#e06bff;letter-spacing:0.12em;text-transform:uppercase;">Hidden</div>
+          <div style="font-size:15px;font-weight:700;">Entertainment Center / AV Cabinet</div>
+        </div>
+      </div>
+      <div style="padding:16px 20px;">
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A surprising number of people hide their home lab gear in an AV cabinet alongside router and streaming devices. The Mac Mini is completely silent and the DS423+ fan is very quiet. Just ensure airflow — don't seal it in a fully enclosed cabinet without ventilation.</div>
+        <div style="font-size:12px;color:var(--muted);">
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#e06bff;">✓</span> Blends with existing AV setup</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#e06bff;">✓</span> Near router = short cable runs</div>
+          <div style="margin-bottom:6px;display:flex;gap:8px;"><span style="color:#e06bff;">⚠</span> Must have airflow / ventilation</div>
+          <div style="display:flex;gap:8px;"><span style="color:#e06bff;">⚠</span> Can get warm — monitor temps</div>
+        </div>
+        <div style="margin-top:14px;padding:10px;background:var(--surface2);border-radius:8px;font-size:11px;color:var(--muted);font-family:var(--mono);">
+          Cabinet fan (if needed) ~$20<br>
+          Shelf riser inside cabinet ~$15<br>
+          Temperature monitor ~$15
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Mounting products -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:20px;">
+    <div class="section-label" style="margin-bottom:16px;">Recommended Products for Any Setup</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#4fca7a;margin-bottom:8px;">Mounting</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+          StarTech 6U wall rack · ~$80<br>
+          Rackmount shelf tray · ~$25<br>
+          VESA arm (monitor, optional) · ~$30<br>
+          Wall anchors + screws · ~$5
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#4f8ef7;margin-bottom:8px;">Cable Management</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+          Velcro cable ties · ~$10<br>
+          Cable raceway (wall) · ~$15<br>
+          Cable labels / label maker · ~$20<br>
+          Short Cat6 patch cables · ~$20
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#ff7c4f;margin-bottom:8px;">Power & Safety</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+          APC UPS BE600M1 · ~$70<br>
+          Smart power strip · ~$25<br>
+          Cabinet thermometer · ~$15<br>
+          USB-A outlet (wall) · ~$12
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pro tips -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;">
+    <div class="section-label" style="margin-bottom:14px;">Pro Tips</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(79,202,122,0.15);border:1px solid #4fca7a;display:flex;align-items:center;justify-content:center;font-size:11px;color:#4fca7a;flex-shrink:0;margin-top:1px;">1</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Label every cable end</strong> — both ends, with masking tape and a marker or a label maker. You'll thank yourself 6 months later when you need to swap something.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(79,142,247,0.15);border:1px solid #4f8ef7;display:flex;align-items:center;justify-content:center;font-size:11px;color:#4f8ef7;flex-shrink:0;margin-top:1px;">2</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Use short patch cables</strong> — 1ft and 2ft cables in different colors for each device. Keeps the rack tight and makes tracing connections instant.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(247,201,72,0.15);border:1px solid #f7c948;display:flex;align-items:center;justify-content:center;font-size:11px;color:#f7c948;flex-shrink:0;margin-top:1px;">3</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Keep 6"+ clearance</strong> behind and above the NAS for airflow. The DS423+ pulls air through the drives and exhausts out the back — blocking it will raise temperatures and shorten drive life.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(255,124,79,0.15);border:1px solid #ff7c4f;display:flex;align-items:center;justify-content:center;font-size:11px;color:#ff7c4f;flex-shrink:0;margin-top:1px;">4</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Run the Mac Mini headless</strong> — after initial setup, SSH and VNC mean you never need a monitor plugged into it. Saves a cable and keeps the install tidy.</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(224,107,255,0.15);border:1px solid #e06bff;display:flex;align-items:center;justify-content:center;font-size:11px;color:#e06bff;flex-shrink:0;margin-top:1px;">5</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.6;"><strong style="color:var(--text);">Set static IPs</strong> on your router for the Mini and NAS — assign them fixed local IPs (e.g. 192.168.1.10 and 192.168.1.11). Everything stays consistent and you never have to hunt for device addresses.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="panel-projects" class="panel">
+
+  <div class="foundation">
+    <div class="foundation-label">Shared Foundation</div>
+    <div class="foundation-items">
+      <div class="foundation-pill"><span>▣</span>Mac Mini M4 Pro (64GB)</div>
+      <div class="foundation-pill"><span>▣</span>Ollama</div>
+      <div class="foundation-pill"><span>▣</span>Docker</div>
+      <div class="foundation-pill"><span>▣</span>Tailscale</div>
+      <div class="foundation-pill"><span>▣</span>Synology NAS</div>
+      <div class="foundation-pill"><span>▣</span>Open WebUI</div>
+    </div>
+  </div>
+
+  <div class="projects">
+
+    <div class="project-card" style="--card-accent:#4fca7a;">
+      <div class="card-header">
+        <div class="card-icon">💰</div>
+        <div class="card-meta">
+          <div class="card-number">Project 01 — Financial</div>
+          <div class="card-title">Family Financial Planning Guide</div>
+          <div class="card-subtitle">Private AI financial advisor with full knowledge of your family's actual numbers — fully offline.</div>
+        </div>
+        <div class="difficulty-badge">Moderate</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Input</span><span class="node-desc">Bank exports, manual entries via Actual Budget</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Store</span><span class="node-desc">SQLite DB on NAS — spending, goals, income</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">RAG</span><span class="node-desc">Index financial data → vector store for context</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">LLM</span><span class="node-desc">Llama 3.3 70B — reasoning + recommendations</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Output</span><span class="node-desc">Dashboard + chat interface via browser</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Set up Actual Budget</div><div class="phase-detail">Self-hosted finance tracker. Import bank CSVs, set up categories, establish baseline.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Build data pipeline</div><div class="phase-detail">Export spending summaries nightly to structured format. Store on NAS.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">RAG setup</div><div class="phase-detail">ChromaDB or LlamaIndex to index financial data for full context answers.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Chat interface</div><div class="phase-detail">Ask: "How do we save $50k in 2 years?" with full personal context.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Actual Budget</div><div class="stack-tag">ChromaDB</div><div class="stack-tag">LlamaIndex</div><div class="stack-tag">Llama 3.3 70B</div><div class="stack-tag">React</div><div class="stack-tag">SQLite</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#4f8ef7;">
+      <div class="card-header">
+        <div class="card-icon">📸</div>
+        <div class="card-meta">
+          <div class="card-number">Project 02 — Storage</div>
+          <div class="card-title">Photo & Video Library (NAS)</div>
+          <div class="card-subtitle">Private Google Photos replacement — auto-organized by date, AI-searchable, yours forever.</div>
+        </div>
+        <div class="difficulty-badge">Easy</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Ingest</span><span class="node-desc">Phone auto-upload via Synology Photos app</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Store</span><span class="node-desc">NAS — /YYYY/MM/DD folder structure</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Index</span><span class="node-desc">Face recognition, auto-albums, map view</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">AI Tag</span><span class="node-desc">LLaVA vision model — describe & tag photos</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Access</span><span class="node-desc">Browser / mobile via Tailscale from anywhere</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Set up Synology NAS</div><div class="phase-detail">DS423+ with 4 IronWolf drives in SHR. Install Synology Photos from Package Center.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Mobile auto-backup</div><div class="phase-detail">Synology Photos app on all family phones. Auto-upload over WiFi. Date-organized automatically.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Remote access</div><div class="phase-detail">Connect Synology to Tailscale for secure family access from anywhere.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">AI search layer</div><div class="phase-detail">LLaVA auto-describes new photos. Search "beach vacation 2024" by natural language.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Synology DS423+</div><div class="stack-tag">Synology Photos</div><div class="stack-tag">LLaVA Vision</div><div class="stack-tag">Tailscale</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#f7c948;">
+      <div class="card-header">
+        <div class="card-icon">🃏</div>
+        <div class="card-meta">
+          <div class="card-number">Project 03 — Pokémon</div>
+          <div class="card-title">Card Scanner & Price Tracker</div>
+          <div class="card-subtitle">Point your phone at a card — instant ID, live market price, collection value tracking.</div>
+        </div>
+        <div class="difficulty-badge">Advanced</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Capture</span><span class="node-desc">Mobile camera → image upload to Mac Mini</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Identify</span><span class="node-desc">Qwen2.5-VL → card name + set + number</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Lookup</span><span class="node-desc">PokémonTCG API + TCGPlayer → prices</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Store</span><span class="node-desc">SQLite — collection inventory + price history</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Display</span><span class="node-desc">Card detail, price chart, collection value</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">API integration</div><div class="phase-detail">PokémonTCG.io (free) and TCGPlayer API. Build a price fetcher returning low/mid/high.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Vision card ID</div><div class="phase-detail">Qwen2.5-VL via Ollama. Test accuracy across different card conditions and lighting.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Collection database</div><div class="phase-detail">SQLite: cards, prices (timestamped), collection entries. Daily price snapshots.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Mobile-friendly UI</div><div class="phase-detail">React PWA — camera access, scan button, collection overview with total value.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Qwen2.5-VL</div><div class="stack-tag">PokémonTCG API</div><div class="stack-tag">TCGPlayer API</div><div class="stack-tag">SQLite</div><div class="stack-tag">React PWA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#e06bff;">
+      <div class="card-header">
+        <div class="card-icon">🎓</div>
+        <div class="card-meta">
+          <div class="card-number">Project 04 — Education</div>
+          <div class="card-title">Kids Learning Environment</div>
+          <div class="card-subtitle">Safe, ad-free, age-appropriate AI tutor — no data collection, no inappropriate content.</div>
+        </div>
+        <div class="difficulty-badge">Easy–Moderate</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Input</span><span class="node-desc">Kid picks a subject / types a question</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Guard</span><span class="node-desc">System prompt enforces safe, age-appropriate responses</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">LLM</span><span class="node-desc">Qwen 2.5 32B — explains at grade level</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Quiz</span><span class="node-desc">Auto-generates follow-up questions</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Track</span><span class="node-desc">Progress DB — topics, quiz scores, streaks</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Design the persona</div><div class="phase-detail">System prompt: friendly name, tone, grade level, subject limits, safety rules.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Subject selector UI</div><div class="phase-detail">Simple homescreen with subject tiles. Kid taps one to start a lesson.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Quiz generator</div><div class="phase-detail">LLM auto-generates 3 multiple-choice questions after each lesson. Track scores.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Parent dashboard</div><div class="phase-detail">Topics covered, quiz scores, time spent, conversation history review.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Qwen 2.5 32B</div><div class="stack-tag">React</div><div class="stack-tag">Prompt Engineering</div><div class="stack-tag">SQLite</div><div class="stack-tag">Node.js</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#ff7c4f;">
+      <div class="card-header">
+        <div class="card-icon">🏠</div>
+        <div class="card-meta">
+          <div class="card-number">Project 05 — Home</div>
+          <div class="card-title">Home Improvement Visual Guide</div>
+          <div class="card-subtitle">Snap a photo of anything broken — get diagnosis, fix steps, materials list, and cost estimate.</div>
+        </div>
+        <div class="difficulty-badge">Moderate</div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Capture</span><span class="node-desc">Photo upload from phone or MacBook</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Analyze</span><span class="node-desc">Qwen2.5-VL — identify problem, severity, category</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Diagnose</span><span class="node-desc">LLM: problem summary + fix approach options</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Guide</span><span class="node-desc">Step-by-step instructions with tools + materials</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Cost</span><span class="node-desc">Materials estimate + DIY vs hire recommendation</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Vision model setup</div><div class="phase-detail">Qwen2.5-VL via Ollama. Test with home repair photos. Refine prompts.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Repair guide generator</div><div class="phase-detail">Chain vision output into structured repair steps with skill level rating.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Materials estimator</div><div class="phase-detail">LLM outputs structured materials list. Optional: Home Depot API for live pricing.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">History log</div><div class="phase-detail">Save every repair query — builds a maintenance log for your home over time.</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Qwen2.5-VL</div><div class="stack-tag">Llama 3.3 70B</div><div class="stack-tag">React</div><div class="stack-tag">Node.js</div><div class="stack-tag">SQLite</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#38d9c0;">
+      <div class="card-header">
+        <div class="card-icon">🎨</div>
+        <div class="card-meta">
+          <div class="card-number">Project 06 — Etsy Business</div>
+          <div class="card-title">Pokémon Binder Art Generator → Etsy Digital Sales</div>
+          <div class="card-subtitle">Use local AI image generation to produce printable binder placeholder sheets — organized by set, generation, or Pokédex number — and sell them as instant digital downloads on Etsy. The market is active and proven: complete Pokédex sets sell for $10–$55 each.</div>
+        </div>
+        <div class="difficulty-badge">Advanced</div>
+      </div>
+
+      <!-- Market research banner -->
+      <div style="margin:0 26px;padding:12px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;display:flex;flex-wrap:wrap;gap:20px;">
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#38d9c0;font-family:var(--mono);">$10–$55</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">price range per listing</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#38d9c0;font-family:var(--mono);">462+</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">favorites on example listing</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#38d9c0;font-family:var(--mono);">Bestseller</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">badge on comparable listings</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#38d9c0;font-family:var(--mono);">1025+</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">Pokémon to cover (Gen 1–9)</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:16px;font-weight:700;color:#38d9c0;font-family:var(--mono);">$0 COGS</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:2px;">digital download, no inventory</div>
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:4px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Data</span><span class="node-desc">PokémonTCG API — fetch card list, set info, artwork URLs</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Generate</span><span class="node-desc">Stable Diffusion (local) or FLUX — generate placeholder art per card style</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Layout</span><span class="node-desc">Python (Pillow/ReportLab) — arrange 9 placeholders per letter-size PDF page</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Export</span><span class="node-desc">High-res PDF (300 DPI) ready for print-at-home</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Sell</span><span class="node-desc">Upload to Etsy as instant digital download listing</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase">
+              <div class="phase-dot">1</div>
+              <div>
+                <div class="phase-title">Card data pipeline</div>
+                <div class="phase-detail">Pull all card data from PokémonTCG API — name, number, set, type, rarity. Store in SQLite. This feeds every listing you'll ever make.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">2</div>
+              <div>
+                <div class="phase-title">Placeholder template system</div>
+                <div class="phase-detail">Design a base card template (Pokémon name, number, set symbol, type icon, silhouette or art). Use Python Pillow to render each card programmatically — no manual design work per card.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">3</div>
+              <div>
+                <div class="phase-title">AI art style layer</div>
+                <div class="phase-detail">Use FLUX or Stable Diffusion locally on Mac Mini to generate stylized background art per Pokémon type (Fire = warm gradient, Water = cool blue, etc). Differentiates your listings from plain text placeholders.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">4</div>
+              <div>
+                <div class="phase-title">PDF assembly & export</div>
+                <div class="phase-detail">ReportLab arranges 9 cards per page at 300 DPI letter size. One script run = full set PDF ready for upload. Automate for every set and generation.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">5</div>
+              <div>
+                <div class="phase-title">Etsy listing strategy</div>
+                <div class="phase-detail">List by generation (Gen 1, Gen 2…), by set (151, Journey Together…), and by Pokémon (Bulbasaur master set, Charizard all cards). Multiple listings from one pipeline = more surface area.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Listing strategy section -->
+      <div style="padding:16px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:12px;">Etsy Listing Breakdown — Revenue Model</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#38d9c0;margin-bottom:6px;">By Generation</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Gen 1 Kanto (151)<br>Gen 2 Johto (100)<br>Gen 3–9 each<br><span style="color:var(--text);">~9 listings · $8–15 ea</span></div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#38d9c0;margin-bottom:6px;">By TCG Set</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Scarlet & Violet<br>Journey Together<br>151, Base Set etc.<br><span style="color:var(--text);">50+ listings · $5–12 ea</span></div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#38d9c0;margin-bottom:6px;">Complete Bundle</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Full Pokédex 1–1025<br>All sets + checklist<br>Premium listing<br><span style="color:var(--text);">1 listing · $30–55</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Differentiators -->
+      <div style="padding:0 26px 16px;">
+        <div class="section-label" style="margin-bottom:10px;">How to Stand Out from Existing Sellers</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ AI-generated type-themed art backgrounds</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Updated monthly as new sets release</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Checklist + binder slot numbers included</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Multiple visual themes (dark mode, minimal, vintage)</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Customizable on request (add customer's name)</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Ties directly into your Pokémon price tracker app</div>
+        </div>
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">FLUX / Stable Diffusion</div>
+          <div class="stack-tag">Python Pillow</div>
+          <div class="stack-tag">ReportLab</div>
+          <div class="stack-tag">PokémonTCG API</div>
+          <div class="stack-tag">SQLite</div>
+          <div class="stack-tag">Etsy API</div>
+          <div class="stack-tag">Node.js</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card" style="--card-accent:#a78bfa;">
+      <div class="card-header">
+        <div class="card-icon">🏢</div>
+        <div class="card-meta">
+          <div class="card-number">Project 07 — Business</div>
+          <div class="card-title">AI Business Advisor — LLC & Brand Setup Guide</div>
+          <div class="card-subtitle">A private, conversational AI advisor that walks you through forming an LLC, setting up your Etsy and social media business legally, handling taxes, separating finances, and building a real brand — all tailored to your specific situation and state.</div>
+        </div>
+        <div class="difficulty-badge">Moderate</div>
+      </div>
+
+      <!-- What it covers banner -->
+      <div style="margin:0 26px;padding:12px 16px;background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.2);border-radius:8px;">
+        <div style="font-family:var(--mono);font-size:10px;color:#a78bfa;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">What the advisor covers</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">LLC Formation</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">EIN Registration</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Business Bank Account</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Etsy Seller Setup</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Self-Employment Taxes</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Brand Identity</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Social Media Strategy</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Copyright & IP</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Quarterly Estimated Taxes</div>
+          <div style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);border-radius:6px;padding:4px 10px;font-size:11px;color:#a78bfa;">Expense Tracking</div>
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:4px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Onboard</span><span class="node-desc">User fills intake form — state, business type, revenue goal, current status</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Profile</span><span class="node-desc">LLM builds a personalized business profile stored in SQLite</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">RAG</span><span class="node-desc">Index: IRS docs, SBA guides, state LLC rules, Etsy seller policies</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Advisor</span><span class="node-desc">Llama 3.3 70B — guided chat with step-by-step action items</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Track</span><span class="node-desc">Checklist dashboard — mark steps complete, see what's next</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase">
+              <div class="phase-dot">1</div>
+              <div>
+                <div class="phase-title">Business intake form</div>
+                <div class="phase-detail">Simple onboarding UI — your state, business name ideas, current Etsy/social revenue, whether you're sole proprietor or want a partner. This context shapes every answer the advisor gives.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">2</div>
+              <div>
+                <div class="phase-title">Knowledge base (RAG)</div>
+                <div class="phase-detail">Index IRS Publication 334 (small business taxes), SBA LLC guides, your state's Secretary of State LLC filing docs, Etsy seller handbook, and copyright/IP basics for digital products. Store in ChromaDB.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">3</div>
+              <div>
+                <div class="phase-title">Guided advisor chat</div>
+                <div class="phase-detail">Conversational UI backed by Llama 3.3 70B with your business profile always in context. Asks clarifying questions, explains options, gives state-specific steps (e.g. California LLC costs vs. Wyoming, etc).</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">4</div>
+              <div>
+                <div class="phase-title">Action item checklist</div>
+                <div class="phase-detail">As you talk, the LLM extracts concrete to-dos into a persistent checklist: "File Articles of Organization", "Get EIN from IRS.gov", "Open business checking account", "Register on Etsy as a business". Mark complete as you go.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">5</div>
+              <div>
+                <div class="phase-title">Tax & finance module</div>
+                <div class="phase-detail">Quarterly estimated tax calculator (15.3% self-employment + income tax), expense category tracker, and reminders for tax deadlines (Apr 15, Jun 15, Sep 15, Jan 15). Connects to the Financial Planning app for unified view.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The roadmap breakdown -->
+      <div style="padding:16px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:12px;">Business Setup Roadmap — What the Advisor Walks You Through</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#a78bfa;margin-bottom:8px;">Step 1 — Legal</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Choose business name<br>
+              File LLC Articles<br>
+              Pay state filing fee<br>
+              Get EIN (free, IRS.gov)<br>
+              Operating agreement
+            </div>
+          </div>
+
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#a78bfa;margin-bottom:8px;">Step 2 — Finance</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Open business bank account<br>
+              Get business debit/credit<br>
+              Set up bookkeeping<br>
+              Separate personal/business<br>
+              Track all income/expenses
+            </div>
+          </div>
+
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#a78bfa;margin-bottom:8px;">Step 3 — Platforms</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Update Etsy to business<br>
+              Set up Etsy payment account<br>
+              Register social handles<br>
+              Link all platforms to LLC<br>
+              Set up business email
+            </div>
+          </div>
+
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#a78bfa;margin-bottom:8px;">Step 4 — Taxes</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Understand Schedule C<br>
+              Set aside 25–30% income<br>
+              Quarterly estimated taxes<br>
+              Track deductible expenses<br>
+              Home office deduction
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- IP notice -->
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(255,124,79,0.07);border:1px solid rgba(255,124,79,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong style="color:#ff7c4f;">⚠️ Important — Pokémon IP Note:</strong> The advisor will flag that Pokémon characters, names, and artwork are intellectual property of Nintendo/Game Freak/The Pokémon Company. Your Etsy listings should use <em>original AI-generated art</em> inspired by type themes and collector aesthetics — not reproduced official sprites or card art. The AI art generator in Project 06 is designed around this. The advisor walks you through safe territory vs. infringement risk so your business is protected from day one.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Llama 3.3 70B</div>
+          <div class="stack-tag">ChromaDB</div>
+          <div class="stack-tag">LlamaIndex</div>
+          <div class="stack-tag">React</div>
+          <div class="stack-tag">Node.js</div>
+          <div class="stack-tag">SQLite</div>
+          <div class="stack-tag">IRS / SBA Docs (RAG)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 08 ── -->
+    <div class="project-card" style="--card-accent:#f43f5e;">
+      <div class="card-header">
+        <div class="card-icon">📦</div>
+        <div class="card-meta">
+          <div class="card-number">Project 08 — Package Integrity</div>
+          <div class="card-title">Certified Package — Chain of Custody & Theft Claim System</div>
+          <div class="card-subtitle">A tamper-evidence and chain-of-custody app for shipping Pokémon cards and collectibles. Photograph and timestamp contents before sealing, track the package through transit, detect tampering or missing contents on arrival, and auto-generate pre-filled claim paperwork for USPS, FedEx, UPS, and others.</div>
+        </div>
+        <div class="difficulty-badge">Advanced</div>
+      </div>
+
+      <!-- Real problem banner -->
+      <div style="margin:0 26px;padding:12px 16px;background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);border-radius:8px;">
+        <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">The Real Problem — Documented Cases</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+          A former USPS sorting clerk in NJ pleaded guilty to stealing <strong style="color:var(--text);">$108,692</strong> in Pokémon and sports cards across 10 packages. Mail theft is a federal crime (up to 5 years prison) but victims routinely lose claims because they lack timestamped proof of what was inside before sealing. USPS rejects <strong style="color:var(--text);">30–40% of all insurance claims</strong> due to insufficient documentation — this app solves that problem directly.
+        </div>
+      </div>
+
+      <!-- Claim deadlines reference -->
+      <div style="margin:12px 26px 0;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Carrier Claim Deadlines — Built Into the App</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+          <div style="border-right:1px solid var(--border);padding-right:10px;">
+            <div style="font-size:12px;font-weight:600;color:#f43f5e;margin-bottom:4px;">USPS</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Damaged/missing: file immediately, <strong style="color:var(--text);">60-day hard deadline</strong><br>Lost: wait 15 days, file by day 60<br>Priority Express: 7–60 days<br>Postal Inspector: 877-876-2455</div>
+          </div>
+          <div style="border-right:1px solid var(--border);padding-right:10px;">
+            <div style="font-size:12px;font-weight:600;color:#f43f5e;margin-bottom:4px;">FedEx</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Damaged/missing: <strong style="color:var(--text);">60 days domestic</strong>, 21 days intl<br>Lost: up to 9 months<br>File at: fedex.com/claims<br>Resolved in 7–21 business days</div>
+          </div>
+          <div style="border-right:1px solid var(--border);padding-right:10px;">
+            <div style="font-size:12px;font-weight:600;color:#f43f5e;margin-bottom:4px;">UPS</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">Damaged/missing: <strong style="color:var(--text);">60 days from delivery</strong><br>Lost: 24hrs after expected<br>Requires: photos, invoice, tracking<br>Physical inspection may be needed</div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:#f43f5e;margin-bottom:4px;">Escalation</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">USPS mail theft = <strong style="color:var(--text);">federal crime</strong><br>File with USPIS (postal inspector)<br>File police report for evidence<br>App generates both automatically</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:12px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Pre-Ship</span><span class="node-desc">Photograph contents, cards, condition — timestamped + GPS tagged</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Certify</span><span class="node-desc">Generate a tamper-evident package certificate with hash of all photos</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Track</span><span class="node-desc">Pull real-time tracking from USPS / FedEx / UPS APIs — monitor transit</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Receive</span><span class="node-desc">Recipient photographs arrival condition — AI compares before vs. after</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Claim</span><span class="node-desc">Auto-generate pre-filled claim forms + USPIS theft report if tampering detected</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase">
+              <div class="phase-dot">1</div>
+              <div>
+                <div class="phase-title">Pre-shipment photo vault</div>
+                <div class="phase-detail">Mobile-first camera UI. Photograph each card, the sealed package, and the label. Every photo is automatically timestamped, GPS-tagged, and stored with a cryptographic hash on your NAS. This is your irrefutable proof of contents before handoff.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">2</div>
+              <div>
+                <div class="phase-title">Package certificate generation</div>
+                <div class="phase-detail">App generates a PDF "Certificate of Package Contents" — a tamper-evident document listing every item, its condition, photos, card values (pulled from your Pokémon price tracker), and a hash fingerprint proving the photos haven't been altered.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">3</div>
+              <div>
+                <div class="phase-title">Live tracking + deadline monitor</div>
+                <div class="phase-detail">Connects to USPS, FedEx, and UPS tracking APIs. Monitors transit in real time. Automatically calculates and displays the claim deadline countdown (60 days) from ship date — sends push alerts at 45, 30, and 7 days remaining.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">4</div>
+              <div>
+                <div class="phase-title">Arrival comparison (AI)</div>
+                <div class="phase-detail">Recipient uses the app to photograph arrival condition. Qwen2.5-VL compares before vs. after images and flags discrepancies — missing cards, resealed packaging, weight differences. Generates a tamper score and flags suspected theft vs. transit damage.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">5</div>
+              <div>
+                <div class="phase-title">Auto-claim form generator</div>
+                <div class="phase-detail">One button generates a complete pre-filled claim package: carrier-specific claim form (USPS/FedEx/UPS), photo evidence bundle, Certificate of Contents, card value documentation from your price tracker, and if theft is suspected — a USPIS postal inspector complaint and police report template.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature breakdown -->
+      <div style="padding:16px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:12px;">Key Features That Make Claims Bulletproof</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#f43f5e;margin-bottom:8px;">🔒 Tamper Evidence</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Cryptographic hash of every photo<br>
+              Immutable timestamp on NAS<br>
+              GPS coordinates on capture<br>
+              Before/after AI comparison<br>
+              Chain of custody log
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#f43f5e;margin-bottom:8px;">📋 Claim Package</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">
+              Pre-filled carrier claim forms<br>
+              Photo evidence PDF bundle<br>
+              Card values auto-populated<br>
+              USPIS inspector report<br>
+              Police report template
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#f43f5e;margin-bottom:8px;">⏰ Deadline Alerts</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.7;">
+              60-day claim countdown<br>
+              Push alerts at 45/30/7 days<br>
+              Per-carrier deadline rules<br>
+              Escalation reminders<br>
+              Never miss a filing window
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synergy note -->
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(247,201,72,0.07);border:1px solid rgba(247,201,72,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong style="color:#f7c948;">🔗 Connects to Project 03 (Card Scanner) + Project 06 (Etsy):</strong> Card values for the claim package are pulled automatically from your Pokémon price tracker — no manual entry. When you ship an Etsy order, the app auto-populates the card names, set, condition, and current market value. Every package you ship becomes a documented, insured, and legally defensible transaction.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Qwen2.5-VL</div>
+          <div class="stack-tag">React PWA</div>
+          <div class="stack-tag">Node.js</div>
+          <div class="stack-tag">SQLite</div>
+          <div class="stack-tag">USPS API</div>
+          <div class="stack-tag">FedEx API</div>
+          <div class="stack-tag">UPS API</div>
+          <div class="stack-tag">ReportLab (PDF)</div>
+          <div class="stack-tag">SHA-256 hashing</div>
+          <div class="stack-tag">Synology NAS (vault)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="timeline-section">
+    <div class="timeline-header">
+      <h2>Suggested Build Order</h2>
+      <p>Start with foundations, layer projects in order of complexity.</p>
+    </div>
+    <div class="timeline-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 1 · Weeks 1–2</div>
+        <div class="timeline-phase-title">Foundation</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Mac Mini + Ollama setup</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Docker + Open WebUI</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Tailscale remote access</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Synology NAS + Photos</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 2 · Weeks 3–5</div>
+        <div class="timeline-phase-title">Quick Wins</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#ff7c4f"></div><div class="timeline-item-text">Home improvement scanner</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#e06bff"></div><div class="timeline-item-text">Kids learning environment</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Mobile photo auto-backup live</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 3 · Weeks 6–9</div>
+        <div class="timeline-phase-title">Core Projects</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4fca7a"></div><div class="timeline-item-text">Actual Budget + pipeline</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4fca7a"></div><div class="timeline-item-text">Financial RAG + chat</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f7c948"></div><div class="timeline-item-text">Pokémon API + vision ID</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 4 · Weeks 10–14</div>
+        <div class="timeline-phase-title">Polish & Expand</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f7c948"></div><div class="timeline-item-text">Pokémon collection dashboard</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4fca7a"></div><div class="timeline-item-text">Financial goal alerts</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#e06bff"></div><div class="timeline-item-text">Kids parent dashboard</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">AI photo search layer</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 5 · Weeks 15–20</div>
+        <div class="timeline-phase-title">Etsy Launch</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Card data pipeline + SQLite</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Pillow template system</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">AI art backgrounds (FLUX)</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">First Etsy listings live</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Monthly set update automation</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 6 · Weeks 16–22</div>
+        <div class="timeline-phase-title">Business Setup</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">Business intake + profile</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">RAG: IRS + SBA + state docs</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">LLC advisor chat live</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">Action checklist dashboard</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">Tax calculator + reminders</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#a78bfa"></div><div class="timeline-item-text">LLC filed · EIN obtained</div></div>
+      </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 7 · Weeks 20–26</div>
+        <div class="timeline-phase-title">Package Cert</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">Photo vault + timestamping</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">Certificate PDF generator</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">Carrier tracking APIs</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">AI before/after comparison</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">Auto claim form builder</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">USPIS report generator</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(name) {
+    const panels = ['hardware','wiring','purchase','storage','projects'];
+    document.querySelectorAll('.tab').forEach((t,i) => {
+      t.classList.toggle('active', panels[i] === name);
+    });
+    document.querySelectorAll('.panel').forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + name);
+    });
+  }
+</script>
+</body>
+</html>
