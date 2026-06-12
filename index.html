@@ -410,6 +410,7 @@
   <button class="tab" onclick="switchTab('purchase')">🛒 Purchase Order</button>
   <button class="tab" onclick="switchTab('storage')">🏠 Storage Ideas</button>
   <button class="tab" onclick="switchTab('projects')">🗂 Project Roadmap</button>
+  <button class="tab" onclick="switchTab('action')">✅ Action Plan</button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -1964,9 +1965,297 @@
 
 </div>
 
+<!-- ═══════════════════════════════════════════
+     TAB 6: ACTION PLAN
+═══════════════════════════════════════════ -->
+<div id="panel-action" class="panel">
+
+  <div class="page-header" style="margin-bottom:24px;">
+    <div class="eyebrow">Revised Strategy</div>
+    <h1 style="font-size:28px;">Action Plan — Ship, Then Scale</h1>
+    <p>Stop planning. Start shipping. Hardware follows validated projects, not the other way around.</p>
+  </div>
+
+  <!-- Philosophy banner -->
+  <div style="background:var(--surface);border:1px solid #f43f5e;border-radius:14px;padding:20px 24px;margin-bottom:24px;">
+    <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">The Rule</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Don't buy infrastructure for unvalidated ideas.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">The MacBook Pro runs Ollama, pulls 70B models, and handles every project solo. The Mac Mini only gets ordered after you've shipped something real and proven you need always-on. The NAS comes after that. No $7K upfront spend on maybes.</div>
+  </div>
+
+  <!-- ═══ GATE 1 ═══ -->
+  <div style="background:var(--surface);border:1px solid #4f8ef7;border-radius:16px;overflow:hidden;margin-bottom:16px;">
+    <div style="display:flex;align-items:stretch;">
+      <div style="background:#4f8ef7;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+        <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">GATE</div>
+        <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">1</div>
+      </div>
+      <div style="padding:20px 24px;flex:1;">
+        <div style="font-family:var(--mono);font-size:10px;color:#4f8ef7;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Week 0 — Buy Only What You Need Today</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;">MacBook Pro 14" M5 Pro 64GB — $3,999</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Daily driver regardless. Runs Ollama, pulls models, develops all projects locally. Nothing else gets purchased until Gate 2 is cleared.</div>
+
+        <div id="gate1-checklist" style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Order MacBook Pro 14" M5 Pro 64GB / 2TB from Apple.com</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Ollama + pull Llama 3.3 70B (Q4_K_M quantization)</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Docker Desktop + Open WebUI</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Tailscale (free) — remote access from day 1</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Pull Qwen2.5-VL vision model for Projects 03/05/08</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Verify 70B model runs acceptably on MacBook Pro (>5 tok/s)</span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(79,142,247,0.08);border:1px solid rgba(79,142,247,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
+          <strong style="color:#4f8ef7;">Gate 1 exit criteria:</strong> MacBook arrives, Ollama runs, you can chat with a 70B model locally. Total spend: $3,999. Move to Gate 2.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GATE 2 ═══ -->
+  <div style="background:var(--surface);border:1px solid #f43f5e;border-radius:16px;overflow:hidden;margin-bottom:16px;">
+    <div style="display:flex;align-items:stretch;">
+      <div style="background:#f43f5e;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+        <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">GATE</div>
+        <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">2</div>
+      </div>
+      <div style="padding:20px 24px;flex:1;">
+        <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Weeks 1–2 — Ship ONE Project on MacBook</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Project 08: Certified Package — Chain of Custody</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:6px;">Strongest standalone product. Real revenue potential. Solves a documented problem with money attached. Ship an MVP in 2 weeks running entirely on the MacBook.</div>
+        <div style="font-size:12px;color:#f43f5e;margin-bottom:16px;font-weight:600;">Why this first: it's the only project where someone would pay you money. Validate that before building toys.</div>
+
+        <div id="gate2-checklist" style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Build mobile-first camera UI — photo capture with timestamp + GPS metadata</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>SHA-256 hash every photo on capture — immutable proof of contents</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Build Certificate of Contents PDF generator (ReportLab)</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Integrate USPS tracking API — monitor one carrier first</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Build pre-filled USPS claim form generator</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Ship a real package using the app — test the full flow end to end</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#f43f5e;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Show it to 3 people who ship collectibles — would they pay for this?</span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
+          <strong style="color:#f43f5e;">Gate 2 exit criteria:</strong> MVP works. You've shipped a package with it. At least 1 person who isn't you says "I'd pay for this." If yes → Gate 3. If no → pick a different project and repeat Gate 2.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GATE 3 ═══ -->
+  <div style="background:var(--surface);border:1px solid #4fca7a;border-radius:16px;overflow:hidden;margin-bottom:16px;">
+    <div style="display:flex;align-items:stretch;">
+      <div style="background:#4fca7a;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+        <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">GATE</div>
+        <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">3</div>
+      </div>
+      <div style="padding:20px 24px;flex:1;">
+        <div style="font-family:var(--mono);font-size:10px;color:#4fca7a;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Week 3+ — Scale Only If Validated</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Buy Mac Mini — Only If You Need Always-On</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">You've shipped something. It works. Now you need it running 24/7 because closing your laptop kills it. <em>That's</em> when the Mac Mini earns its $2,000.</div>
+
+        <div id="gate3-checklist" style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Confirm you need always-on: is closing the MacBook actually a problem?</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Order Mac Mini M4 Pro 64GB (~$2,000)</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Order TP-Link 2.5G switch + Cat6 cables (~$60)</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Set up Mac Mini headless — SSH + VNC, Docker, Ollama, Tailscale</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Migrate validated project from MacBook to Mac Mini</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4fca7a;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Confirm it runs stable for 48 hours unattended</span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(79,202,122,0.08);border:1px solid rgba(79,202,122,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
+          <strong style="color:#4fca7a;">Gate 3 exit criteria:</strong> Project runs 24/7 on Mac Mini. You're using the MacBook as a client, not a server. Total spend so far: ~$6,060. NAS comes next only if you need persistent storage beyond what the Mini's SSD provides.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ GATE 4 ═══ -->
+  <div style="background:var(--surface);border:1px solid #f7c948;border-radius:16px;overflow:hidden;margin-bottom:24px;">
+    <div style="display:flex;align-items:stretch;">
+      <div style="background:#f7c948;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+        <div style="font-family:var(--mono);font-size:10px;color:rgba(0,0,0,0.5);letter-spacing:0.1em;">GATE</div>
+        <div style="font-size:32px;font-weight:800;color:#111;line-height:1;">4</div>
+      </div>
+      <div style="padding:20px 24px;flex:1;">
+        <div style="font-family:var(--mono);font-size:10px;color:#f7c948;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">After Gate 3 — Pick Next Project by Revenue Potential</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;">Prioritized Project Queue</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">One project at a time. Ship it or kill it. Don't start the next until the current one is either live or deliberately abandoned.</div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#f43f5e;min-width:24px;">P1</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Certified Package (Project 08)</div>
+              <div style="font-size:11px;color:var(--muted);">SaaS potential. Revenue day 1. Already building in Gate 2.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#f43f5e;white-space:nowrap;">$$$ · Ship first</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#38d9c0;min-width:24px;">P2</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Pokémon Binder Art → Etsy (Project 06)</div>
+              <div style="font-size:11px;color:var(--muted);">Digital product, $0 COGS, passive revenue. Validate IP risk first.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#38d9c0;white-space:nowrap;">$$ · Passive income</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#f7c948;min-width:24px;">P3</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Pokémon Card Scanner (Project 03)</div>
+              <div style="font-size:11px;color:var(--muted);">Feeds into Etsy + Package Cert. Only build if vision accuracy >90%.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#f7c948;white-space:nowrap;">$ · Utility tool</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#ff7c4f;min-width:24px;">P4</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Home Improvement Scanner (Project 05)</div>
+              <div style="font-size:11px;color:var(--muted);">Practical daily use. Quick build if vision stack already proven from P3.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#ff7c4f;white-space:nowrap;">Personal · Quick win</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#4f8ef7;min-width:24px;">P5</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Photo & Video Library (Project 02)</div>
+              <div style="font-size:11px;color:var(--muted);">Requires NAS. Only after Gate 3 hardware is stable. Use Immich.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#4f8ef7;white-space:nowrap;">Personal · Needs NAS</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;opacity:0.5;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--muted);min-width:24px;">—</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--muted);">Financial Planning (Project 01) — Consider cutting</div>
+              <div style="font-size:11px;color:var(--muted);">A spreadsheet + 30 min of thinking beats a RAG pipeline here. Low ROI.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;text-decoration:line-through;">Replaced by spreadsheet</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;opacity:0.5;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--muted);min-width:24px;">—</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--muted);">Kids Learning (Project 04) — Consider cutting</div>
+              <div style="font-size:11px;color:var(--muted);">Khan Academy + ChatGPT already do this better than a local LLM will.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;text-decoration:line-through;">Existing tools win</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(247,201,72,0.08);border:1px solid rgba(247,201,72,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
+          <strong style="color:#f7c948;">Gate 4 rule:</strong> Finish or kill before starting the next. No parallel projects. No "I'll come back to it." If you haven't touched a project in 2 weeks, it's dead — remove it from the queue.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress tracker -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="section-label" style="margin-bottom:4px;">Overall Progress</div>
+        <div id="progress-text" style="font-size:13px;color:var(--muted);">0 of 19 tasks complete</div>
+      </div>
+      <div id="progress-pct" style="font-family:var(--mono);font-size:28px;font-weight:700;color:var(--accent1);">0%</div>
+    </div>
+    <div style="background:var(--surface2);border-radius:6px;height:8px;overflow:hidden;">
+      <div id="progress-bar" style="background:linear-gradient(90deg,#4f8ef7,#f43f5e,#4fca7a);height:100%;width:0%;border-radius:6px;transition:width 0.3s;"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:var(--muted);">
+      <span>Gate 1: MacBook</span>
+      <span>Gate 2: Ship MVP</span>
+      <span>Gate 3: Scale</span>
+      <span>Gate 4: Next project</span>
+    </div>
+  </div>
+
+  <!-- Spend tracker -->
+  <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;">
+    <div class="section-label" style="margin-bottom:14px;">Spend Gate — Don't Exceed Without Validation</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border-radius:10px;overflow:hidden;">
+      <div style="background:var(--surface2);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 1</div>
+        <div style="font-size:20px;font-weight:700;color:#4f8ef7;font-family:var(--mono);">$3,999</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">MacBook only</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 2</div>
+        <div style="font-size:20px;font-weight:700;color:#f43f5e;font-family:var(--mono);">$0</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Ship on MacBook</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 3</div>
+        <div style="font-size:20px;font-weight:700;color:#4fca7a;font-family:var(--mono);">$2,060</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Mini + networking</div>
+      </div>
+      <div style="background:var(--surface2);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 4+</div>
+        <div style="font-size:20px;font-weight:700;color:#f7c948;font-family:var(--mono);">~$870</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">NAS + UPS (if needed)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <script>
   function switchTab(name) {
-    const panels = ['hardware','wiring','purchase','storage','projects'];
+    const panels = ['hardware','wiring','purchase','storage','projects','action'];
     document.querySelectorAll('.tab').forEach((t,i) => {
       t.classList.toggle('active', panels[i] === name);
     });
@@ -1974,6 +2263,29 @@
       p.classList.toggle('active', p.id === 'panel-' + name);
     });
   }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('#panel-action input[type="checkbox"]');
+    const checked = document.querySelectorAll('#panel-action input[type="checkbox"]:checked');
+    const pct = Math.round((checked.length / all.length) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-text').textContent = checked.length + ' of ' + all.length + ' tasks complete';
+    // Save to localStorage
+    const state = Array.from(all).map(cb => cb.checked);
+    localStorage.setItem('homelab-checklist', JSON.stringify(state));
+  }
+
+  // Restore from localStorage on load
+  document.addEventListener('DOMContentLoaded', function() {
+    const saved = localStorage.getItem('homelab-checklist');
+    if (saved) {
+      const state = JSON.parse(saved);
+      const all = document.querySelectorAll('#panel-action input[type="checkbox"]');
+      all.forEach((cb, i) => { if (state[i]) cb.checked = true; });
+      updateProgress();
+    }
+  });
 </script>
 </body>
 </html>
