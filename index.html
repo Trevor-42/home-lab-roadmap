@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Lab Project Roadmap</title>
+<meta name="description" content="Complete home lab setup guide — hardware costs, wiring diagrams, purchase order, and 8 AI project roadmaps built on Mac Mini + Synology NAS.">
+<meta property="og:title" content="Home Lab Project Roadmap">
+<meta property="og:description" content="Hardware, costs, wiring diagrams, and 8 AI projects — from financial planning to Pokémon card scanning to Etsy digital sales. ~$7K total build.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trevor-42.github.io/home-lab-roadmap/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Home Lab Project Roadmap">
+<meta name="twitter:description" content="Complete home lab setup guide — hardware, wiring, and 8 AI project roadmaps.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -579,7 +588,7 @@
     </div>
 
     <!-- Accessories -->
-    <div class="hw-card" style="--card-color: #ff7c4f;" style="grid-column: span 2;">
+    <div class="hw-card" style="--card-color: #ff7c4f; grid-column: span 2;">
       <div class="hw-card-header">
         <div class="hw-icon" style="--card-color:#ff7c4f">🔌</div>
         <div>
@@ -1206,6 +1215,8 @@
       <div class="foundation-pill"><span>▣</span>Tailscale</div>
       <div class="foundation-pill"><span>▣</span>Synology NAS</div>
       <div class="foundation-pill"><span>▣</span>Open WebUI</div>
+      <div class="foundation-pill"><span>▣</span>Shared Auth Layer</div>
+      <div class="foundation-pill"><span>▣</span>Litestream (SQLite backup)</div>
     </div>
   </div>
 
@@ -1260,7 +1271,7 @@
         <div class="card-meta">
           <div class="card-number">Project 02 — Storage</div>
           <div class="card-title">Photo & Video Library (NAS)</div>
-          <div class="card-subtitle">Private Google Photos replacement — auto-organized by date, AI-searchable, yours forever.</div>
+          <div class="card-subtitle">Private Google Photos replacement — auto-organized by date, AI-searchable, yours forever. Consider Immich (open-source, Docker-native, superior AI tagging) over Synology Photos.</div>
         </div>
         <div class="difficulty-badge">Easy</div>
       </div>
@@ -1292,7 +1303,7 @@
       <div class="stack-section">
         <div class="stack-label">Stack</div>
         <div class="stack-tags">
-          <div class="stack-tag">Synology DS423+</div><div class="stack-tag">Synology Photos</div><div class="stack-tag">LLaVA Vision</div><div class="stack-tag">Tailscale</div>
+          <div class="stack-tag">Synology DS423+</div><div class="stack-tag">Immich (recommended)</div><div class="stack-tag">Synology Photos (alt)</div><div class="stack-tag">LLaVA Vision</div><div class="stack-tag">Tailscale</div><div class="stack-tag">Docker</div>
         </div>
       </div>
     </div>
@@ -1303,7 +1314,7 @@
         <div class="card-meta">
           <div class="card-number">Project 03 — Pokémon</div>
           <div class="card-title">Card Scanner & Price Tracker</div>
-          <div class="card-subtitle">Point your phone at a card — instant ID, live market price, collection value tracking.</div>
+          <div class="card-subtitle">Point your phone at a card — instant ID, live market price, collection value tracking. Use PokémonTCG API image search as fallback — vision models can hallucinate card numbers.</div>
         </div>
         <div class="difficulty-badge">Advanced</div>
       </div>
@@ -1497,7 +1508,7 @@
               <div class="phase-dot">3</div>
               <div>
                 <div class="phase-title">AI art style layer</div>
-                <div class="phase-detail">Use FLUX or Stable Diffusion locally on Mac Mini to generate stylized background art per Pokémon type (Fire = warm gradient, Water = cool blue, etc). Differentiates your listings from plain text placeholders.</div>
+                <div class="phase-detail">Use FLUX or Stable Diffusion locally on Mac Mini to generate stylized background art per Pokémon type (Fire = warm gradient, Water = cool blue, etc). Differentiates your listings from plain text placeholders. Note: ~30–60s per image on M4 Pro 64GB — run batch generation overnight.</div>
               </div>
             </div>
             <div class="phase">
@@ -1727,7 +1738,7 @@
         <div class="card-meta">
           <div class="card-number">Project 08 — Package Integrity</div>
           <div class="card-title">Certified Package — Chain of Custody & Theft Claim System</div>
-          <div class="card-subtitle">A tamper-evidence and chain-of-custody app for shipping Pokémon cards and collectibles. Photograph and timestamp contents before sealing, track the package through transit, detect tampering or missing contents on arrival, and auto-generate pre-filled claim paperwork for USPS, FedEx, UPS, and others.</div>
+          <div class="card-subtitle">A tamper-evidence and chain-of-custody app for shipping Pokémon cards and collectibles. Photograph and timestamp contents before sealing, track the package through transit, detect tampering or missing contents on arrival, and auto-generate pre-filled claim paperwork for USPS, FedEx, UPS, and others. Strongest standalone product — strong SaaS potential beyond personal use.</div>
         </div>
         <div class="difficulty-badge">Advanced</div>
       </div>
@@ -1893,7 +1904,9 @@
         <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Mac Mini + Ollama setup</div></div>
         <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Docker + Open WebUI</div></div>
         <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Tailscale remote access</div></div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Synology NAS + Photos</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Shared auth layer (all projects)</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Litestream SQLite → NAS backup</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">Synology NAS + Immich</div></div>
       </div>
       <div class="timeline-phase">
         <div class="timeline-phase-label">Phase 2 · Weeks 3–5</div>
