@@ -3109,20 +3109,428 @@
     </div>
   </div>
 
-  <!-- Quick start -->
-  <div style="margin-top:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 24px;">
-    <div style="font-family:var(--mono);font-size:10px;color:var(--accent3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px;">Quick Start</div>
-    <div style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:2.2;">
-      <span style="color:var(--muted);"># Install Ollama (one command)</span><br>
-      <span style="color:var(--text);">curl -fsSL https://ollama.com/install.sh | sh</span><br>
-      <span style="color:var(--muted);"># Or download Mac app → <a href="https://ollama.com" target="_blank" style="color:var(--accent1);">ollama.com</a></span><br><br>
-      <span style="color:var(--muted);"># Run a model</span><br>
-      <span style="color:var(--text);">ollama run llama3.3</span><br><br>
-      <span style="color:var(--muted);"># OpenAI-compatible API at localhost:11434</span><br>
-      <span style="color:var(--text);">curl http://localhost:11434/v1/chat/completions \</span><br>
-      <span style="color:var(--text);">&nbsp;&nbsp;-H "Content-Type: application/json" \</span><br>
-      <span style="color:var(--text);">&nbsp;&nbsp;-d '{"model":"llama3.3","messages":[{"role":"user","content":"hello"}]}'</span>
+  <!-- ═══════════════════════════════════════════
+       STEP-BY-STEP GUIDES
+  ═══════════════════════════════════════════ -->
+
+  <!-- Guide 1: Install Ollama -->
+  <div style="margin-top:32px;">
+    <div style="font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent1);margin-bottom:14px;">📘 Step-by-Step Guides</div>
+
+    <div style="background:var(--surface);border:1px solid var(--accent1);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 1: Install Ollama on macOS</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: ~2 minutes · Difficulty: Easy · Prerequisite: None</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Download Ollama</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Go to <a href="https://ollama.com/download" target="_blank" style="color:var(--accent1);">ollama.com/download</a> and click "Download for macOS". This downloads a .zip file (~60MB).</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:4px;">Or use terminal: <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:11px;">brew install ollama</code></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Install the App</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Unzip and drag <strong>Ollama.app</strong> to your Applications folder. Double-click to launch. You'll see a llama icon appear in your menu bar — that means the server is running.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Verify Installation</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Open Terminal and run:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama --version</span><br>
+            <span style="color:var(--accent3);">ollama version 0.6.x</span><br><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama list</span><br>
+            <span style="color:var(--muted);"># Empty table if first install — that's normal</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:var(--accent3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">✓</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;color:var(--accent3);">Done!</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Ollama runs as a background service. It starts automatically on boot. API available at <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:11px;">http://localhost:11434</code></div>
+        </div>
+      </div>
     </div>
+
+    <!-- Guide 2: Download & Run Your First Model -->
+    <div style="background:var(--surface);border:1px solid var(--accent3);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 2: Download & Run Your First Model</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: 5–30 min (depends on model size + internet) · Prerequisite: Ollama installed</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Pull a Model</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Open Terminal and pick a model. Start small to test, then go bigger:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);"># Small & fast (2GB download, good for testing)</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull llama3.2:3b</span><br><br>
+            <span style="color:var(--muted);"># Medium — great daily driver (20GB download)</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull qwen3:32b</span><br><br>
+            <span style="color:var(--muted);"># Large — near GPT-4 quality (40GB download)</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull llama3.3</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">You'll see a progress bar. Models download once and are cached at <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:10px;">~/.ollama/models/</code></div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Chat with the Model</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Run starts an interactive chat session:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama run llama3.2:3b</span><br>
+            <span style="color:var(--accent3);">>>> </span><span style="color:var(--text);">What is the capital of France?</span><br>
+            <span style="color:var(--muted);">The capital of France is Paris...</span><br><br>
+            <span style="color:var(--accent3);">>>> </span><span style="color:var(--text);">Write a Python function to sort a list</span><br>
+            <span style="color:var(--muted);">def sort_list(items): ...</span><br><br>
+            <span style="color:var(--muted);"># Type /bye to exit the chat</span><br>
+            <span style="color:var(--accent3);">>>> </span><span style="color:var(--text);">/bye</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Check What's Installed</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama list</span><br>
+            <span style="color:var(--muted);">NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIZE &nbsp;&nbsp;MODIFIED</span><br>
+            <span style="color:var(--text);">llama3.2:3b &nbsp;&nbsp;&nbsp;&nbsp;2.0 GB &nbsp;5 minutes ago</span><br>
+            <span style="color:var(--text);">llama3.3:latest &nbsp;39 GB &nbsp;2 minutes ago</span><br><br>
+            <span style="color:var(--muted);"># Delete a model you don't need</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama rm llama3.2:3b</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:var(--accent3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">✓</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;color:var(--accent3);">Tips</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">
+            • <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:10px;">ollama run</code> auto-downloads if model not found — no need to pull first<br>
+            • Only one model loads at a time (Ollama swaps automatically)<br>
+            • Models stay in memory for ~5 min after last use, then unload
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide 3: Use the API -->
+    <div style="background:var(--surface);border:1px solid var(--accent2);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 3: Use the API in Your Code</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: ~5 minutes · Prerequisite: Ollama running with a model pulled</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Test with curl (OpenAI-compatible)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Ollama exposes an OpenAI-compatible API. Any code that works with OpenAI works with Ollama — just change the base URL:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">curl http://localhost:11434/v1/chat/completions \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;-H "Content-Type: application/json" \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;-d '{</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;"model": "llama3.2:3b",</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;"messages": [</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{"role": "user", "content": "Hello!"}</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;]</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;}'</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Python (with OpenAI SDK)</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">pip install openai</span><br><br>
+            <span style="color:var(--accent4);">from</span> <span style="color:var(--text);">openai</span> <span style="color:var(--accent4);">import</span> <span style="color:var(--text);">OpenAI</span><br><br>
+            <span style="color:var(--text);">client = OpenAI(</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;base_url=<span style="color:var(--accent3);">"http://localhost:11434/v1"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;api_key=<span style="color:var(--accent3);">"ollama"</span>&nbsp;&nbsp;<span style="color:var(--muted);"># required but unused</span></span><br>
+            <span style="color:var(--text);">)</span><br><br>
+            <span style="color:var(--text);">response = client.chat.completions.create(</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;model=<span style="color:var(--accent3);">"llama3.2:3b"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;messages=[{<span style="color:var(--accent3);">"role"</span>: <span style="color:var(--accent3);">"user"</span>, <span style="color:var(--accent3);">"content"</span>: <span style="color:var(--accent3);">"Hello!"</span>}]</span><br>
+            <span style="color:var(--text);">)</span><br>
+            <span style="color:var(--accent4);">print</span><span style="color:var(--text);">(response.choices[0].message.content)</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">JavaScript / Node.js</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">npm install ollama</span><br><br>
+            <span style="color:var(--accent4);">import</span> <span style="color:var(--text);">{ Ollama }</span> <span style="color:var(--accent4);">from</span> <span style="color:var(--accent3);">'ollama'</span><br><br>
+            <span style="color:var(--accent4);">const</span> <span style="color:var(--text);">ollama = </span><span style="color:var(--accent4);">new</span> <span style="color:var(--text);">Ollama()</span><br><br>
+            <span style="color:var(--accent4);">const</span> <span style="color:var(--text);">response = </span><span style="color:var(--accent4);">await</span> <span style="color:var(--text);">ollama.chat({</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;model: <span style="color:var(--accent3);">'llama3.2:3b'</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;messages: [{ role: <span style="color:var(--accent3);">'user'</span>, content: <span style="color:var(--accent3);">'Hello!'</span> }]</span><br>
+            <span style="color:var(--text);">})</span><br>
+            <span style="color:var(--text);">console.log(response.message.content)</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">4</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Ollama Native API</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Ollama also has its own API (non-OpenAI) with extra features like streaming, model management, and embeddings:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);"># Generate (non-chat, single prompt)</span><br>
+            <span style="color:var(--text);">POST http://localhost:11434/api/generate</span><br><br>
+            <span style="color:var(--muted);"># Chat (multi-turn conversation)</span><br>
+            <span style="color:var(--text);">POST http://localhost:11434/api/chat</span><br><br>
+            <span style="color:var(--muted);"># Embeddings (for RAG/search)</span><br>
+            <span style="color:var(--text);">POST http://localhost:11434/api/embed</span><br><br>
+            <span style="color:var(--muted);"># List models / pull / delete</span><br>
+            <span style="color:var(--text);">GET &nbsp;http://localhost:11434/api/tags</span><br>
+            <span style="color:var(--text);">POST http://localhost:11434/api/pull</span><br>
+            <span style="color:var(--text);">DELETE http://localhost:11434/api/delete</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Full API docs: <a href="https://github.com/ollama/ollama/blob/main/docs/api.md" target="_blank" style="color:var(--accent1);">github.com/ollama/ollama/blob/main/docs/api.md</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide 4: Vision Models -->
+    <div style="background:var(--surface);border:1px solid var(--accent4);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 4: Use Vision Models (Image Understanding)</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: ~5 minutes · Prerequisite: Ollama running</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Pull a Vision Model</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);"># Recommended: best quality for your 64GB setup</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull qwen2.5vl:32b</span><br><br>
+            <span style="color:var(--muted);"># Lightweight: faster, good enough for most tasks</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull llama3.2-vision:11b</span><br><br>
+            <span style="color:var(--muted);"># Tiny: runs anywhere, basic image understanding</span><br>
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull qwen2.5vl:7b</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Analyze an Image from CLI</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama run qwen2.5vl:7b</span><br>
+            <span style="color:var(--accent3);">>>> </span><span style="color:var(--text);">Describe this image: /path/to/photo.jpg</span><br>
+            <span style="color:var(--muted);">The image shows a Charizard Pokémon card...</span><br><br>
+            <span style="color:var(--muted);"># Also works with URLs</span><br>
+            <span style="color:var(--accent3);">>>> </span><span style="color:var(--text);">What's in this image? https://example.com/photo.jpg</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:var(--accent4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Vision API in Python</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--accent4);">import</span> <span style="color:var(--text);">base64, httpx</span><br><br>
+            <span style="color:var(--muted);"># Read image as base64</span><br>
+            <span style="color:var(--text);">img = base64.b64encode(open(<span style="color:var(--accent3);">"photo.jpg"</span>, <span style="color:var(--accent3);">"rb"</span>).read()).decode()</span><br><br>
+            <span style="color:var(--text);">r = httpx.post(<span style="color:var(--accent3);">"http://localhost:11434/api/chat"</span>, json={</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;<span style="color:var(--accent3);">"model"</span>: <span style="color:var(--accent3);">"qwen2.5vl:7b"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;<span style="color:var(--accent3);">"messages"</span>: [{</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"role"</span>: <span style="color:var(--accent3);">"user"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"content"</span>: <span style="color:var(--accent3);">"Describe this image in detail"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"images"</span>: [img]</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;}],</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;<span style="color:var(--accent3);">"stream"</span>: False</span><br>
+            <span style="color:var(--text);">})</span><br>
+            <span style="color:var(--accent4);">print</span><span style="color:var(--text);">(r.json()[<span style="color:var(--accent3);">"message"</span>][<span style="color:var(--accent3);">"content"</span>])</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Use this pattern for forklift detection, slip-fall analysis, Pokémon card scanning, package damage assessment, etc.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide 5: Set Up Open WebUI -->
+    <div style="background:var(--surface);border:1px solid var(--accent5);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 5: Set Up Open WebUI (ChatGPT-style Interface)</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: ~5 minutes · Prerequisite: Ollama running + Docker installed</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Install Docker (if not already)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Download from <a href="https://docker.com/products/docker-desktop/" target="_blank" style="color:var(--accent1);">docker.com</a> or:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">brew install --cask docker</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Launch Open WebUI</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">One command. It auto-connects to your local Ollama:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">docker run -d \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;-p 3000:8080 \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;--add-host=host.docker.internal:host-gateway \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;-v open-webui:/app/backend/data \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;--name open-webui \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;--restart always \</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;ghcr.io/open-webui/open-webui:main</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:var(--accent5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Open in Browser</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">Go to <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-family:var(--mono);font-size:11px;">http://localhost:3000</code>. Create an admin account on first visit. Select any Ollama model from the dropdown. Chat away — conversation history is saved automatically.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:var(--accent5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;">4</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Access from Anywhere (via Tailscale)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.6;">If Tailscale is set up on your Mac Mini, access Open WebUI from any device on your tailnet:</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);"># From your phone/laptop on tailnet:</span><br>
+            <span style="color:var(--text);">http://mac-mini:3000</span><br>
+            <span style="color:var(--muted);"># or use Tailscale IP:</span><br>
+            <span style="color:var(--text);">http://100.x.x.x:3000</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;">Full ChatGPT-like experience, running on your hardware, accessible from the field. Zero cloud costs.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide 6: Embeddings for RAG -->
+    <div style="background:var(--surface);border:1px solid #38d9c0;border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 6: Set Up Embeddings for RAG / Semantic Search</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Time: ~10 minutes · Prerequisite: Ollama running + Python</div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:#38d9c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">1</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Pull an Embedding Model</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama pull nomic-embed-text</span><br>
+            <span style="color:var(--muted);"># ~275MB download, runs instantly</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">
+        <div style="min-width:28px;height:28px;background:#38d9c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">2</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Generate Embeddings</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:6px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+            <span style="color:var(--accent4);">import</span> <span style="color:var(--text);">httpx</span><br><br>
+            <span style="color:var(--text);">r = httpx.post(<span style="color:var(--accent3);">"http://localhost:11434/api/embed"</span>, json={</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;<span style="color:var(--accent3);">"model"</span>: <span style="color:var(--accent3);">"nomic-embed-text"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;<span style="color:var(--accent3);">"input"</span>: [</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"Charizard VMAX is worth $200"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"Fire-type Pokémon cards are popular"</span>,</span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--accent3);">"The weather is sunny today"</span></span><br>
+            <span style="color:var(--text);">&nbsp;&nbsp;]</span><br>
+            <span style="color:var(--text);">})</span><br>
+            <span style="color:var(--text);">embeddings = r.json()[<span style="color:var(--accent3);">"embeddings"</span>]</span><br>
+            <span style="color:var(--muted);"># Returns list of 768-dim vectors</span><br>
+            <span style="color:var(--accent4);">print</span><span style="color:var(--text);">(len(embeddings[0]))  <span style="color:var(--muted);"># 768</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="min-width:28px;height:28px;background:#38d9c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;">3</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Use Cases for Your Projects</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+            <strong>Project 01 (Financial):</strong> Embed bank transaction descriptions → search by meaning ("what did I spend on food?")<br>
+            <strong>Project 02 (Photos):</strong> Embed image captions → semantic photo search<br>
+            <strong>Project 04 (Pokémon):</strong> Embed card descriptions → find similar cards by theme<br>
+            <strong>Project 07 (LLC):</strong> Embed IRS/SBA docs → RAG-powered tax advice chat<br>
+            <strong>codebase-memory-mcp:</strong> Already uses embeddings for code intelligence
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Guide 7: Model Management -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:16px;">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Guide 7: Model Management & Tips</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px;">Essential commands and tricks for managing your local model library</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--accent1);">Essential Commands</div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:var(--mono);font-size:11px;line-height:2;">
+            <span style="color:var(--muted);"># List installed models</span><br>
+            <span style="color:var(--text);">ollama list</span><br>
+            <span style="color:var(--muted);"># See running models</span><br>
+            <span style="color:var(--text);">ollama ps</span><br>
+            <span style="color:var(--muted);"># Model details (size, params, quantization)</span><br>
+            <span style="color:var(--text);">ollama show llama3.3</span><br>
+            <span style="color:var(--muted);"># Delete a model</span><br>
+            <span style="color:var(--text);">ollama rm llama3.2:3b</span><br>
+            <span style="color:var(--muted);"># Update to latest version</span><br>
+            <span style="color:var(--text);">ollama pull llama3.3</span><br>
+            <span style="color:var(--muted);"># Copy/rename a model</span><br>
+            <span style="color:var(--text);">ollama cp llama3.3 my-llama</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--accent2);">Size & Performance Tips</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8;">
+            <strong style="color:var(--text);">VRAM rule:</strong> model needs ~60% of param count in GB at Q4 quantization. 70B → ~40GB.<br><br>
+            <strong style="color:var(--text);">Speed estimate (M4 Pro):</strong><br>
+            • 3B → ~80 tok/s<br>
+            • 7B → ~40 tok/s<br>
+            • 14B → ~25 tok/s<br>
+            • 32B → ~12 tok/s<br>
+            • 70B → ~5 tok/s<br><br>
+            <strong style="color:var(--text);">Quantization:</strong> default Q4_K_M is best balance. Q8 = more accurate but 2x size. Q2 = tiny but noticeable quality loss.<br><br>
+            <strong style="color:var(--text);">Storage:</strong> models at <code style="background:var(--surface2);padding:2px 4px;border-radius:3px;font-size:10px;">~/.ollama/models/</code>. Move to external drive with symlink if SSD fills up.
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(247,201,72,0.08);border:1px solid rgba(247,201,72,0.2);border-radius:8px;">
+        <div style="font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:4px;">💡 Pro Tip: Custom System Prompts</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.6;">Create a Modelfile to customize any model with a permanent system prompt:</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-top:8px;font-family:var(--mono);font-size:11px;line-height:1.8;">
+          <span style="color:var(--muted);"># Create a file called "Modelfile"</span><br>
+          <span style="color:var(--text);">FROM llama3.3</span><br>
+          <span style="color:var(--text);">SYSTEM "You are a Rhombus security camera expert. Help installers with camera placement, network config, and troubleshooting."</span><br>
+          <span style="color:var(--text);">PARAMETER temperature 0.3</span><br><br>
+          <span style="color:var(--muted);"># Build and run your custom model</span><br>
+          <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama create rhombus-helper -f Modelfile</span><br>
+          <span style="color:var(--muted);">$ </span><span style="color:var(--text);">ollama run rhombus-helper</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- Key references -->
