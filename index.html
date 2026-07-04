@@ -2661,7 +2661,7 @@
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
-            <span>Install Tailscale — access your mini PC from phone/laptop anywhere</span>
+            <span>Install Tailscale on Beelink <em>and</em> phone (same login) — reach it from anywhere, no port-forwarding</span>
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
@@ -2671,6 +2671,34 @@
             <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
             <span>Decision: was it useful? → Gate 1 (MacBook Pro). Not useful? → saved $6,664.</span>
           </label>
+        </div>
+
+        <!-- Phone Remote Access -->
+        <div style="margin-top:16px;padding:14px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;">
+          <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">📱 Talk to It From Your Phone</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Ollama serves an HTTP API on port <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">11434</code>. Your phone just needs to reach it. Two setups:</div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Same WiFi — 5 min</div>
+            <ol style="margin:0;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.7;">
+              <li>Set <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">OLLAMA_HOST=0.0.0.0</code> on Beelink, restart Ollama (so it listens on the network, not just localhost)</li>
+              <li>Find Beelink IP: <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">ipconfig</code> → e.g. <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">192.168.1.50</code></li>
+              <li>Phone browser → <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">http://192.168.1.50:8080</code> (Open WebUI) or point an Ollama app at <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">:11434</code></li>
+            </ol>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Anywhere (cell data, coffee shop) — 10 min</div>
+            <ol style="margin:0;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.7;">
+              <li>Install <a href="https://tailscale.com/download" target="_blank" style="color:#38d9c0;">Tailscale</a> on Beelink <em>and</em> phone, log into both with same account</li>
+              <li>They now share a private encrypted network — no port-forwarding, no firewall holes</li>
+              <li>Phone → <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">http://100.x.x.x:8080</code> (Beelink's Tailscale IP) from anywhere</li>
+            </ol>
+          </div>
+
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            <strong style="color:#38d9c0;">Phone clients:</strong> Open WebUI (browser, ChatGPT-style, works on any phone) · Enchanted (iOS) · Ollama App (Android). <strong style="color:#f43f5e;">Don't</strong> port-forward 11434 to the open internet — use Tailscale.
+          </div>
         </div>
 
         <div style="margin-top:14px;padding:10px 14px;background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
