@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Lab Project Roadmap</title>
-<meta name="description" content="Complete home lab setup guide — hardware costs, wiring diagrams, purchase order, and 8 AI project roadmaps built on Mac Mini + Synology NAS.">
+<meta name="description" content="Complete home lab setup guide — hardware costs, wiring diagrams, purchase order, and 11 AI project roadmaps built on Mac Mini + Synology NAS.">
 <meta property="og:title" content="Home Lab Project Roadmap">
-<meta property="og:description" content="Hardware, costs, wiring diagrams, and 8 AI projects — from financial planning to Pokémon card scanning to Etsy digital sales. ~$7K total build.">
+<meta property="og:description" content="Hardware, costs, wiring diagrams, and 11 AI projects — from financial planning to video editing to social media automation. ~$7K total build.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://trevor-42.github.io/home-lab-roadmap/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Lab Project Roadmap">
-<meta name="twitter:description" content="Complete home lab setup guide — hardware, wiring, and 8 AI project roadmaps.">
+<meta name="twitter:description" content="Complete home lab setup guide — hardware, wiring, and 11 AI project roadmaps.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -2156,6 +2156,271 @@
       </div>
     </div>
 
+    <!-- ── PROJECT 10 ── -->
+    <div class="project-card" style="--card-accent:#ff6b9d;">
+      <div class="card-header">
+        <div class="card-icon">🎬</div>
+        <div class="card-meta">
+          <div class="card-number">Project 10 — Video Editing</div>
+          <div class="card-title">AI-Assisted Video Editing Pipeline</div>
+          <div class="card-subtitle">Local AI video editing toolkit — auto-generate cuts, captions, thumbnails, and social-ready clips from raw footage. Process everything on your Mac's GPU with no cloud subscriptions. Powers content for Project 11 (Social Media) and Etsy product promo videos.</div>
+        </div>
+        <div class="difficulty-badge">Moderate</div>
+      </div>
+
+      <div style="margin:0 26px;padding:12px 16px;background:rgba(255,107,157,0.07);border:1px solid rgba(255,107,157,0.2);border-radius:8px;">
+        <div style="font-family:var(--mono);font-size:10px;color:#ff6b9d;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">Why Local Video Editing Matters</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+          Cloud video tools (CapCut Pro, Descript, Opus Clip) cost <strong style="color:var(--text);">$15–$30/month</strong> each and upload your content to third-party servers. A local pipeline keeps footage private, runs offline, and costs $0/month after setup. Apple Silicon's hardware video encoders make this practical — M4/M5 Pro can export 4K H.265 faster than real-time.
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:12px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Ingest</span><span class="node-desc">Drop raw footage into watch folder on NAS or local SSD</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Transcribe</span><span class="node-desc">Whisper (local) — full transcript with word-level timestamps</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">AI Edit</span><span class="node-desc">LLM selects best clips, removes silence/filler, suggests cuts</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Render</span><span class="node-desc">FFmpeg — auto-caption, crop to 9:16/1:1, export per platform</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Output</span><span class="node-desc">Platform-ready clips: TikTok, Reels, Shorts, full YouTube</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase">
+              <div class="phase-dot">1</div>
+              <div>
+                <div class="phase-title">Whisper transcription pipeline</div>
+                <div class="phase-detail">Install whisper.cpp (Apple Silicon optimized). Batch-process video files into timestamped transcripts. This is the foundation — every downstream edit decision uses the transcript.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">2</div>
+              <div>
+                <div class="phase-title">Smart clip extraction</div>
+                <div class="phase-detail">Feed transcript to local LLM with prompt: "Find the 5 most engaging 30–60 second segments." LLM returns timestamp ranges. FFmpeg extracts clips automatically. Silence detection removes dead air.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">3</div>
+              <div>
+                <div class="phase-title">Auto-captioning & formatting</div>
+                <div class="phase-detail">Burn word-by-word animated captions (SRT → ASS styling). Auto-crop to 9:16 for TikTok/Reels, 1:1 for Instagram feed, 16:9 for YouTube. One source video → multiple platform exports.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">4</div>
+              <div>
+                <div class="phase-title">Thumbnail & title generation</div>
+                <div class="phase-detail">Extract highest-energy frame per clip. LLM generates clickable titles and descriptions per platform. Optional: FLUX generates custom thumbnail backgrounds from text prompts.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">5</div>
+              <div>
+                <div class="phase-title">Watch folder automation</div>
+                <div class="phase-detail">Drop a video file into a folder → full pipeline runs automatically. Output: captioned clips + thumbnails + metadata JSON ready for Project 11 (Social Media) to post.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:12px;">Output Per Video</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+            <div style="font-size:20px;font-weight:700;color:#ff6b9d;">3–5</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Short clips<br>(30–60s each)</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+            <div style="font-size:20px;font-weight:700;color:#ff6b9d;">3</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Aspect ratios<br>(9:16, 1:1, 16:9)</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+            <div style="font-size:20px;font-weight:700;color:#ff6b9d;">Auto</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Captions<br>(burned-in SRT)</div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+            <div style="font-size:20px;font-weight:700;color:#ff6b9d;">Auto</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:4px;">Thumbnails<br>+ titles + descriptions</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong style="color:#38d9c0;">🔗 Feeds into Project 11 (Social Media):</strong> Video pipeline outputs platform-ready clips with metadata. Social media automation picks them up and schedules posts across all accounts automatically.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">whisper.cpp</div>
+          <div class="stack-tag">FFmpeg</div>
+          <div class="stack-tag">Llama 3.3 70B</div>
+          <div class="stack-tag">FLUX (thumbnails)</div>
+          <div class="stack-tag">Python</div>
+          <div class="stack-tag">Apple VideoToolbox</div>
+          <div class="stack-tag">watchdog (fs monitor)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROJECT 11 ── -->
+    <div class="project-card" style="--card-accent:#1da1f2;">
+      <div class="card-header">
+        <div class="card-icon">📱</div>
+        <div class="card-meta">
+          <div class="card-number">Project 11 — Social Media</div>
+          <div class="card-title">Social Media Account Automation</div>
+          <div class="card-subtitle">AI-powered social media management — auto-generate posts, schedule content across platforms, analyze engagement, and maintain consistent posting without manual effort. One pipeline feeds TikTok, Instagram, YouTube Shorts, Pinterest, and X simultaneously.</div>
+        </div>
+        <div class="difficulty-badge">Moderate</div>
+      </div>
+
+      <div style="margin:0 26px;padding:12px 16px;background:rgba(29,161,242,0.07);border:1px solid rgba(29,161,242,0.2);border-radius:8px;">
+        <div style="font-family:var(--mono);font-size:10px;color:#1da1f2;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">Platform Coverage</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;">
+          <div style="text-align:center;padding:8px 4px;background:var(--surface2);border-radius:6px;">
+            <div style="font-size:18px;margin-bottom:2px;">📺</div>
+            <div style="font-size:10px;color:var(--muted);">TikTok</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;background:var(--surface2);border-radius:6px;">
+            <div style="font-size:18px;margin-bottom:2px;">📷</div>
+            <div style="font-size:10px;color:var(--muted);">Instagram</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;background:var(--surface2);border-radius:6px;">
+            <div style="font-size:18px;margin-bottom:2px;">▶️</div>
+            <div style="font-size:10px;color:var(--muted);">YouTube</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;background:var(--surface2);border-radius:6px;">
+            <div style="font-size:18px;margin-bottom:2px;">📌</div>
+            <div style="font-size:10px;color:var(--muted);">Pinterest</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;background:var(--surface2);border-radius:6px;">
+            <div style="font-size:18px;margin-bottom:2px;">𝕏</div>
+            <div style="font-size:10px;color:var(--muted);">X / Twitter</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body" style="margin-top:12px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Content</span><span class="node-desc">Video clips from Project 10 + Etsy product images + manual uploads</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">AI Copy</span><span class="node-desc">LLM generates platform-specific captions, hashtags, descriptions</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Schedule</span><span class="node-desc">Queue posts at optimal times per platform — auto or manual approval</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Post</span><span class="node-desc">API push to each platform — TikTok, IG, YouTube, Pinterest, X</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Analyze</span><span class="node-desc">Pull engagement metrics, A/B test captions, optimize posting times</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase">
+              <div class="phase-dot">1</div>
+              <div>
+                <div class="phase-title">Platform API integration</div>
+                <div class="phase-detail">Connect to each platform's API/SDK. TikTok (Content Posting API), Instagram (Graph API via Facebook), YouTube (Data API v3), Pinterest (API v5), X (API v2). Store OAuth tokens securely in SQLite.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">2</div>
+              <div>
+                <div class="phase-title">AI caption & hashtag engine</div>
+                <div class="phase-detail">Feed video transcript + product context to local LLM. Generate platform-tuned copy: short punchy for TikTok, hashtag-heavy for IG, SEO-optimized for YouTube, keyword-rich for Pinterest. Each platform gets unique text — not copy-paste.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">3</div>
+              <div>
+                <div class="phase-title">Content calendar & scheduler</div>
+                <div class="phase-detail">Web dashboard showing weekly content grid. Drag-and-drop scheduling. Auto-suggest optimal posting times per platform based on historical engagement. Queue fills from Project 10's video output folder automatically.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">4</div>
+              <div>
+                <div class="phase-title">Auto-post with approval gate</div>
+                <div class="phase-detail">Two modes: (1) Full auto — posts go live at scheduled time, no intervention. (2) Approval mode — push notification to review before posting. Start with approval mode, graduate to full auto once confident.</div>
+              </div>
+            </div>
+            <div class="phase">
+              <div class="phase-dot">5</div>
+              <div>
+                <div class="phase-title">Analytics dashboard & optimization</div>
+                <div class="phase-detail">Pull engagement data from all platforms into unified dashboard. Track views, likes, shares, comments, follower growth. LLM analyzes what's working and adjusts future captions/posting times. Weekly summary report.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:16px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:12px;">Monthly Savings vs. Cloud Tools</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#1da1f2;margin-bottom:8px;">Cloud Alternative</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Hootsuite: $99/mo<br>
+              Later: $25/mo<br>
+              Buffer: $15/mo<br>
+              Opus Clip: $19/mo
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#4fca7a;margin-bottom:8px;">Your Local Stack</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              Scheduling: $0 (self-hosted)<br>
+              AI captions: $0 (local LLM)<br>
+              Analytics: $0 (API pulls)<br>
+              Video editing: $0 (Project 10)
+            </div>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px;">
+            <div style="font-size:11px;font-weight:600;color:#f43f5e;margin-bottom:8px;">Annual Savings</div>
+            <div style="font-size:11px;color:var(--muted);line-height:1.8;">
+              <strong style="color:var(--text);font-size:18px;">$1,900+</strong><br>
+              per year vs. cloud stack<br>
+              <span style="color:#4fca7a;">+ full data privacy</span><br>
+              <span style="color:#4fca7a;">+ no vendor lock-in</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(255,107,157,0.07);border:1px solid rgba(255,107,157,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong style="color:#ff6b9d;">🔗 Powered by Project 10 (Video Editing) + Project 06 (Etsy):</strong> Video clips arrive auto-captioned and platform-formatted from the editing pipeline. Etsy product launches auto-generate social media announcements. New listing → auto-post product video to all 5 platforms within the hour.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">TikTok API</div>
+          <div class="stack-tag">Instagram Graph API</div>
+          <div class="stack-tag">YouTube Data API</div>
+          <div class="stack-tag">Pinterest API</div>
+          <div class="stack-tag">X API v2</div>
+          <div class="stack-tag">Llama 3.3 70B</div>
+          <div class="stack-tag">React</div>
+          <div class="stack-tag">Node.js</div>
+          <div class="stack-tag">SQLite</div>
+          <div class="stack-tag">cron (scheduler)</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── REFERENCE TOOL ── -->
     <div class="project-card" style="--card-accent:#94a3b8;">
       <div class="card-header">
@@ -2183,7 +2448,7 @@
           <div>
             <div class="section-label">Why It Matters for This Roadmap</div>
             <div style="font-size:12px;color:var(--muted);line-height:1.8;">
-              Build Projects 01–08 faster<br>
+              Build Projects 01–11 faster<br>
               Claude Code understands your code structure<br>
               99.2% token reduction on codebase exploration<br>
               Cross-project awareness as you scale<br>
@@ -2278,6 +2543,17 @@
         <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">Auto claim form builder</div></div>
         <div class="timeline-item"><div class="timeline-dot" style="background:#f43f5e"></div><div class="timeline-item-text">USPIS report generator</div></div>
       </div>
+      <div class="timeline-phase">
+        <div class="timeline-phase-label">Phase 8 · Weeks 24–30</div>
+        <div class="timeline-phase-title">Video & Social</div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#ff6b9d"></div><div class="timeline-item-text">Whisper transcription pipeline</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#ff6b9d"></div><div class="timeline-item-text">Smart clip extraction + silence removal</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#ff6b9d"></div><div class="timeline-item-text">Auto-caption + multi-format export</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#ff6b9d"></div><div class="timeline-item-text">Thumbnail + title generation</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#1da1f2"></div><div class="timeline-item-text">Platform API integrations (5 platforms)</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#1da1f2"></div><div class="timeline-item-text">AI caption engine + scheduler</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#1da1f2"></div><div class="timeline-item-text">Auto-post + analytics dashboard</div></div>
+      </div>
     </div>
   </div>
 
@@ -2298,7 +2574,110 @@
   <div style="background:var(--surface);border:1px solid #f43f5e;border-radius:14px;padding:20px 24px;margin-bottom:24px;">
     <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">The Rule</div>
     <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Don't buy infrastructure for unvalidated ideas.</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.7;">The MacBook Pro runs Ollama, pulls 70B models, and handles every project solo. The Mac Mini only gets ordered after you've shipped something real and proven you need always-on. The NAS comes after that. No $7K upfront spend on maybes.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">Start with a $140 mini PC to prove local AI is useful before spending $4K+. The MacBook Pro runs Ollama, pulls 70B models, and handles every project solo. The Mac Mini only gets ordered after you've shipped something real and proven you need always-on. The NAS comes after that. No $7K upfront spend on maybes.</div>
+  </div>
+
+  <!-- ═══ GATE 0 ═══ -->
+  <div style="background:var(--surface);border:1px solid #38d9c0;border-radius:16px;overflow:hidden;margin-bottom:16px;">
+    <div style="display:flex;align-items:stretch;">
+      <div style="background:#38d9c0;min-width:64px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:16px 12px;">
+        <div style="font-family:var(--mono);font-size:10px;color:rgba(0,0,0,0.5);letter-spacing:0.1em;">GATE</div>
+        <div style="font-size:32px;font-weight:800;color:#111;line-height:1;">0</div>
+      </div>
+      <div style="padding:20px 24px;flex:1;">
+        <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Right Now — Prove Local AI Works for $140</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Beelink Mini S12 PRO — N100 · 16GB · 512GB — ~$140</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:6px;">A complete mini PC that runs small LLMs (1B–7B) locally. Validates whether local AI is useful before committing $4K+ on a MacBook Pro. If you get value from this $140 box, the full build is worth it. If not, you saved $6,860.</div>
+        <div style="font-size:12px;color:#38d9c0;margin-bottom:16px;font-weight:600;">Why this first: the cheapest way to answer "will I actually use local AI?" with real experience, not theory.</div>
+
+        <!-- What it can run -->
+        <div style="margin-bottom:16px;padding:12px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;">
+          <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">What 16GB Can Run</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">Phi-3 Mini 3.8B</div>
+              <div style="font-size:10px;color:var(--muted);">~2GB · ~8 tok/s · general chat</div>
+            </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">Qwen2.5 3B</div>
+              <div style="font-size:10px;color:var(--muted);">~2GB · ~10 tok/s · multilingual</div>
+            </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">Llama 3.2 3B</div>
+              <div style="font-size:10px;color:var(--muted);">~2GB · ~8 tok/s · general</div>
+            </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">Gemma 2 2B</div>
+              <div style="font-size:10px;color:var(--muted);">~1.5GB · ~12 tok/s · fast tasks</div>
+            </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">Qwen2.5-coder 3B</div>
+              <div style="font-size:10px;color:var(--muted);">~2GB · ~9 tok/s · code gen</div>
+            </div>
+            <div style="background:var(--surface2);border-radius:6px;padding:8px 10px;">
+              <div style="font-size:12px;font-weight:600;color:var(--text);">nomic-embed-text</div>
+              <div style="font-size:10px;color:var(--muted);">~0.3GB · fast · RAG embeddings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hardware specs -->
+        <div style="margin-bottom:16px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">Beelink S12 PRO Specs</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:11px;color:var(--muted);">
+            <div><strong style="color:var(--text);">CPU</strong><br>Intel N100<br>4C/4T · 3.4GHz</div>
+            <div><strong style="color:var(--text);">RAM</strong><br>16GB DDR4<br>soldered</div>
+            <div><strong style="color:var(--text);">Storage</strong><br>512GB M.2 SSD<br>NVMe</div>
+            <div><strong style="color:var(--text);">Power</strong><br>6W TDP<br>pennies/day 24/7</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;font-size:11px;color:var(--muted);margin-top:8px;">
+            <div><strong style="color:var(--text);">WiFi</strong><br>WiFi 6</div>
+            <div><strong style="color:var(--text);">Ethernet</strong><br>2.5 GbE</div>
+            <div><strong style="color:var(--text);">Display</strong><br>Dual HDMI 4K</div>
+            <div><strong style="color:var(--text);">BT</strong><br>5.2</div>
+          </div>
+        </div>
+
+        <div id="gate0-checklist" style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Order <a href="https://www.amazon.com/Beelink-Generation-3-4GHz-Display-Computer/dp/B0GY42SQ3L" target="_blank" style="color:#38d9c0;">Beelink Mini S12 PRO (N100/16GB/512GB)</a> from Amazon — ~$140</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Boot it up — keep Windows or install Ubuntu 24.04 LTS (your call)</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Ollama — <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">curl -fsSL https://ollama.com/install.sh | sh</code></span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Pull first model — <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">ollama pull phi3:mini</code> — chat with local AI</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Docker + Open WebUI for browser-based chat interface</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Install Tailscale — access your mini PC from phone/laptop anywhere</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Use it for 2 weeks — generate Etsy descriptions, test caption ideas, ask it questions</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#38d9c0;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Decision: was it useful? → Gate 1 (MacBook Pro). Not useful? → saved $6,860.</span>
+          </label>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
+          <strong style="color:#38d9c0;">Gate 0 exit criteria:</strong> You've used local AI daily for 2 weeks. You know whether it's useful or a gimmick. If useful → buy the MacBook Pro (Gate 1). If not → you're out $140, not $7K. The Beelink stays useful as a Docker host, Plex server, or Pi-hole regardless.
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ GATE 1 ═══ -->
@@ -2497,6 +2876,22 @@
             </div>
             <div style="font-family:var(--mono);font-size:11px;color:#4f8ef7;white-space:nowrap;">Personal · Needs NAS</div>
           </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#ff6b9d;min-width:24px;">P6</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">AI Video Editing Pipeline (Project 10)</div>
+              <div style="font-size:11px;color:var(--muted);">Whisper + FFmpeg + LLM. Powers social content. Build after Etsy is live.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#ff6b9d;white-space:nowrap;">$$ · Content engine</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;">
+            <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:#1da1f2;min-width:24px;">P7</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;">Social Media Automation (Project 11)</div>
+              <div style="font-size:11px;color:var(--muted);">Depends on Project 10 video output. 5-platform auto-posting + analytics.</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#1da1f2;white-space:nowrap;">$$ · Growth multiplier</div>
+          </div>
           <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;opacity:0.5;">
             <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--muted);min-width:24px;">—</div>
             <div style="flex:1;">
@@ -2535,6 +2930,7 @@
       <div id="progress-bar" style="background:linear-gradient(90deg,#4f8ef7,#f43f5e,#4fca7a);height:100%;width:0%;border-radius:6px;transition:width 0.3s;"></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:11px;color:var(--muted);">
+      <span>Gate 0: Beelink</span>
       <span>Gate 1: MacBook</span>
       <span>Gate 2: Ship MVP</span>
       <span>Gate 3: Scale</span>
@@ -2545,7 +2941,12 @@
   <!-- Spend tracker -->
   <div style="margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;">
     <div class="section-label" style="margin-bottom:14px;">Spend Gate — Don't Exceed Without Validation</div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border-radius:10px;overflow:hidden;">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--border);border-radius:10px;overflow:hidden;">
+      <div style="background:var(--surface2);padding:16px;text-align:center;">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 0</div>
+        <div style="font-size:20px;font-weight:700;color:#38d9c0;font-family:var(--mono);">~$140</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">Beelink S12 PRO</div>
+      </div>
       <div style="background:var(--surface2);padding:16px;text-align:center;">
         <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;">Gate 1</div>
         <div style="font-size:20px;font-weight:700;color:#4f8ef7;font-family:var(--mono);">$3,999</div>
