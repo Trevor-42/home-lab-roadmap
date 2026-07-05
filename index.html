@@ -1446,9 +1446,9 @@
         <div class="card-meta">
           <div class="card-number">Project 06 — Etsy Business</div>
           <div class="card-title">Pokémon Binder Art Generator → Etsy Digital Sales</div>
-          <div class="card-subtitle">Use local AI image generation to produce printable binder placeholder sheets — organized by set, generation, or Pokédex number — and sell them as instant digital downloads on Etsy. The market is active and proven: complete Pokédex sets sell for $10–$55 each.</div>
+          <div class="card-subtitle">Generate printable binder placeholder sheets with original geometric vector art (no GPU, no AI image gen) and auto-write every Etsy listing + shop copy with a local Ollama model. Runs entirely on the Gate 0 Beelink today. Sell as instant digital downloads — proven market at $10–$55 per set.</div>
         </div>
-        <div class="difficulty-badge">Advanced</div>
+        <div class="difficulty-badge" style="background:rgba(56,217,192,0.15);border-color:rgba(56,217,192,0.4);color:#38d9c0;">✅ Built · Gate 0</div>
       </div>
 
       <!-- Market research banner -->
@@ -1479,53 +1479,53 @@
         <div>
           <div class="section-label">Architecture</div>
           <div class="arch-flow">
-            <div class="arch-node"><span class="node-label">Data</span><span class="node-desc">PokémonTCG API — fetch card list, set info, artwork URLs</span></div>
+            <div class="arch-node"><span class="node-label">List</span><span class="node-desc">pokemon_list.txt — names to generate (by set / gen / Pokédex)</span></div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-node"><span class="node-label">Generate</span><span class="node-desc">Stable Diffusion (local) or FLUX — generate placeholder art per card style</span></div>
+            <div class="arch-node"><span class="node-label">Art</span><span class="node-desc">generate_art.py — ReportLab geometric vector creature, type-based palette, signature mustache. No GPU</span></div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-node"><span class="node-label">Layout</span><span class="node-desc">Python (Pillow/ReportLab) — arrange 9 placeholders per letter-size PDF page</span></div>
+            <div class="arch-node"><span class="node-label">Vary</span><span class="node-desc">vary_art.py — Ollama art-directs design specs (validated JSON, never executed)</span></div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-node"><span class="node-label">Export</span><span class="node-desc">High-res PDF (300 DPI) ready for print-at-home</span></div>
+            <div class="arch-node"><span class="node-label">Copy</span><span class="node-desc">generate_listings.py + generate_shop_copy.py — Ollama writes titles, 13 tags, descriptions, shop text</span></div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-node"><span class="node-label">Sell</span><span class="node-desc">Upload to Etsy as instant digital download listing</span></div>
+            <div class="arch-node"><span class="node-label">Sell</span><span class="node-desc">Print-ready PDF + CSV of listings → upload to Etsy as instant digital download</span></div>
           </div>
         </div>
         <div>
           <div class="section-label">Build Phases</div>
           <div class="phases">
             <div class="phase">
-              <div class="phase-dot">1</div>
+              <div class="phase-dot" style="background:#38d9c0;color:#111;">✓</div>
               <div>
-                <div class="phase-title">Card data pipeline</div>
-                <div class="phase-detail">Pull all card data from PokémonTCG API — name, number, set, type, rarity. Store in SQLite. This feeds every listing you'll ever make.</div>
+                <div class="phase-title">Geometric art generator <span style="color:#38d9c0;font-size:11px;">— built</span></div>
+                <div class="phase-detail">generate_art.py draws an original geometric creature per name — type-based palette, signature curly-handlebar mustache — as a card-sized placeholder with crop marks. Pure ReportLab vector, no GPU. Batch a whole list to PDF in seconds. This is the IP-safe path: original interpretation, not redrawn card art.</div>
               </div>
             </div>
             <div class="phase">
-              <div class="phase-dot">2</div>
+              <div class="phase-dot" style="background:#38d9c0;color:#111;">✓</div>
               <div>
-                <div class="phase-title">Placeholder template system</div>
-                <div class="phase-detail">Design a base card template (Pokémon name, number, set symbol, type icon, silhouette or art). Use Python Pillow to render each card programmatically — no manual design work per card.</div>
+                <div class="phase-title">Ollama design director <span style="color:#38d9c0;font-size:11px;">— built</span></div>
+                <div class="phase-detail">vary_art.py asks a local model for N design variations. It returns a constrained JSON spec (head shape, ears, eyes, mustache, palette) — validated and clamped, never executed as code — rendered to a contact sheet so you pick a shop style. Ollama as art director, not pixel-pusher.</div>
               </div>
             </div>
             <div class="phase">
-              <div class="phase-dot">3</div>
+              <div class="phase-dot" style="background:#38d9c0;color:#111;">✓</div>
               <div>
-                <div class="phase-title">AI art style layer</div>
-                <div class="phase-detail">Use FLUX or Stable Diffusion locally on Mac Mini to generate stylized background art per Pokémon type (Fire = warm gradient, Water = cool blue, etc). Differentiates your listings from plain text placeholders. Note: ~30–60s per image on M4 Pro 64GB — run batch generation overnight.</div>
+                <div class="phase-title">Listing + shop copy generators <span style="color:#38d9c0;font-size:11px;">— built</span></div>
+                <div class="phase-detail">generate_listings.py writes Etsy titles, 13 tags, and descriptions per product (placeholder or extended-art), enforcing Etsy limits. generate_shop_copy.py writes the one-time announcement, About, policies, FAQ, and buyer message. Trademark-cautious throughout.</div>
               </div>
             </div>
             <div class="phase">
               <div class="phase-dot">4</div>
               <div>
-                <div class="phase-title">PDF assembly & export</div>
-                <div class="phase-detail">ReportLab arranges 9 cards per page at 300 DPI letter size. One script run = full set PDF ready for upload. Automate for every set and generation.</div>
+                <div class="phase-title">Full Pokédex list + batch</div>
+                <div class="phase-detail">Expand pokemon_list.txt to the sets you want (SV8a Prismatic, 151, Gen 1–9). One run = full set of sheets + a CSV of listings. Add each Pokémon's type to the palette map for correct coloring.</div>
               </div>
             </div>
             <div class="phase">
               <div class="phase-dot">5</div>
               <div>
                 <div class="phase-title">Etsy listing strategy</div>
-                <div class="phase-detail">List by generation (Gen 1, Gen 2…), by set (151, Journey Together…), and by Pokémon (Bulbasaur master set, Charizard all cards). Multiple listings from one pipeline = more surface area.</div>
+                <div class="phase-detail">List by generation (Gen 1, Gen 2…), by set (151, Journey Together…), and by Pokémon (Bulbasaur master set, Charizard all cards). Multiple listings from one pipeline = more surface area. Extended-art prints are a second product line (needs GPU/cloud image gen — Gate 1+).</div>
               </div>
             </div>
           </div>
@@ -1555,7 +1555,7 @@
       <div style="padding:0 26px 16px;">
         <div class="section-label" style="margin-bottom:10px;">How to Stand Out from Existing Sellers</div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ AI-generated type-themed art backgrounds</div>
+          <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Original geometric type-themed art (IP-safe)</div>
           <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Updated monthly as new sets release</div>
           <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Checklist + binder slot numbers included</div>
           <div style="background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:6px;padding:5px 11px;font-size:11px;color:#38d9c0;">✦ Multiple visual themes (dark mode, minimal, vintage)</div>
@@ -1567,13 +1567,12 @@
       <div class="stack-section">
         <div class="stack-label">Stack</div>
         <div class="stack-tags">
-          <div class="stack-tag">FLUX / Stable Diffusion</div>
-          <div class="stack-tag">Python Pillow</div>
           <div class="stack-tag">ReportLab</div>
+          <div class="stack-tag">Ollama (qwen2.5)</div>
+          <div class="stack-tag">Python (stdlib)</div>
+          <div class="stack-tag">Geometric vector art</div>
           <div class="stack-tag">PokémonTCG API</div>
-          <div class="stack-tag">SQLite</div>
-          <div class="stack-tag">Etsy API</div>
-          <div class="stack-tag">Node.js</div>
+          <div class="stack-tag">CSV → Etsy</div>
         </div>
       </div>
     </div>
