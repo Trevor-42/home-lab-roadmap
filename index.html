@@ -1515,10 +1515,10 @@
               </div>
             </div>
             <div class="phase">
-              <div class="phase-dot">4</div>
+              <div class="phase-dot" style="background:#38d9c0;color:#111;">✓</div>
               <div>
-                <div class="phase-title">Full Pokédex list + batch</div>
-                <div class="phase-detail">Expand pokemon_list.txt to the sets you want (SV8a Prismatic, 151, Gen 1–9). One run = full set of sheets + a CSV of listings. Add each Pokémon's type to the palette map for correct coloring.</div>
+                <div class="phase-title">Full Pokédex list + batch <span style="color:#38d9c0;font-size:11px;">— built</span></div>
+                <div class="phase-detail">fetch_pokemon.py pulls names + types two ways: national dex via PokéAPI (<code>--gen 1</code>, <code>--all</code>) or any TCG set via pokemontcg.io (<code>--tcg-set sv8pt5</code> = Prismatic Evolutions, 103 cards; <code>--list-sets</code> finds set ids). Types auto-map to palette colors — no hand-mapping — and cache to pokemon_types.json. One run = full set of sheets in seconds + a CSV of listings. Only slow step is Ollama copy at scale (run overnight).</div>
               </div>
             </div>
             <div class="phase">
