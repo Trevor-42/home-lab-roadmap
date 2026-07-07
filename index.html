@@ -708,7 +708,7 @@
         <!-- ─── SWITCH ─── -->
         <rect x="330" y="234" width="200" height="52" rx="10" fill="#1e2333" stroke="#4f8ef7" stroke-width="1.5"/>
         <text x="430" y="254" fill="#7a84a0" font-size="10" text-anchor="middle" letter-spacing="2">2.5G ETHERNET</text>
-        <text x="430" y="272" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="600">TP-Link 5-Port Switch</text>
+        <text x="430" y="272" fill="#e8eaf0" font-size="13" text-anchor="middle" font-weight="600">TP-Link 8-Port 2.5G Switch</text>
         <text x="430" y="282" fill="#4f8ef7" font-size="10" text-anchor="middle">~$40</text>
 
         <!-- Router → Switch -->
@@ -2514,13 +2514,13 @@
         <div class="timeline-item"><div class="timeline-dot" style="background:#4f8ef7"></div><div class="timeline-item-text">AI photo search layer</div></div>
       </div>
       <div class="timeline-phase">
-        <div class="timeline-phase-label">Phase 5 · Weeks 15–20</div>
+        <div class="timeline-phase-label">Phase 5 · Now (kit already built)</div>
         <div class="timeline-phase-title">Etsy Launch</div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Card data pipeline + SQLite</div></div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Pillow template system</div></div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">AI art backgrounds (FLUX)</div></div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">First Etsy listings live</div></div>
-        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Monthly set update automation</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Pipeline built ✓ (fetch → art → listings → ZIP)</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">First listing LIVE — the only unfinished step</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Basic social posting pulled forward from P11 — a listing with zero distribution validates nothing</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">30-day sales data → go/kill decision</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">New-set automation (check_new_sets cron)</div></div>
       </div>
       <div class="timeline-phase">
         <div class="timeline-phase-label">Phase 6 · Weeks 16–22</div>
@@ -2572,8 +2572,61 @@
   <!-- Philosophy banner -->
   <div style="background:var(--surface);border:1px solid #f43f5e;border-radius:14px;padding:20px 24px;margin-bottom:24px;">
     <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">The Rule</div>
-    <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Don't buy infrastructure for unvalidated ideas.</div>
-    <div style="font-size:13px;color:var(--muted);line-height:1.7;">Start with a ~$336 mini PC to prove local AI is useful before spending $4K+. The MacBook Pro runs Ollama, pulls 70B models, and handles every project solo. The Mac Mini only gets ordered after you've shipped something real and proven you need always-on. The NAS comes after that. No $7K upfront spend on maybes.</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:8px;">Gates unlock on shipped outcomes, not on the previous box arriving.</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;">Start with a ~$336 mini PC to prove local AI is useful before spending $4K+. Each gate has an <strong style="color:var(--text);">entry criterion that is a validated result</strong> — a project shipped to real users, a sale, a measured win — never just "the hardware showed up." The MacBook Pro handles every project solo; the Mac Mini only gets ordered after something real has shipped and needs always-on; the NAS after that. No $7K upfront spend on maybes.</div>
+  </div>
+
+  <!-- ═══ SUCCESS / KILL CRITERIA ═══ -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:16px;">
+    <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Accountability</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:10px;">Every project has a success metric and a kill switch — decided before building.</div>
+    <div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;line-height:1.5;">
+      <tr style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;text-align:left;">
+        <th style="padding:6px 10px 6px 0;">Project</th><th style="padding:6px 10px;">Success =</th><th style="padding:6px 0 6px 10px;">Kill if</th></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">01 Finance Advisor</td><td style="padding:6px 10px;color:var(--muted);">used weekly for 4+ weeks; catches ≥1 real budget issue/mo</td><td style="padding:6px 0 6px 10px;color:var(--muted);">untouched for 2 weeks</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">02 Family Photos</td><td style="padding:6px 10px;color:var(--muted);">all phones auto-backup 30 days + 1 restore drill passed</td><td style="padding:6px 0 6px 10px;color:var(--muted);">restore drill fails twice</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">03 Card Scanner</td><td style="padding:6px 10px;color:var(--muted);">ID accuracy >90% on your real collection</td><td style="padding:6px 0 6px 10px;color:var(--muted);"><90% after tuning (existing rule)</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">04 Homework Helper</td><td style="padding:6px 10px;color:var(--muted);">kid completes 10 lessons unprompted</td><td style="padding:6px 0 6px 10px;color:var(--muted);"><2 uses/week after the novelty month</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">05 Home Repair</td><td style="padding:6px 10px;color:var(--muted);">3 real repairs done with correct materials list</td><td style="padding:6px 0 6px 10px;color:var(--muted);">2 wrong or unsafe suggestions</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">06 Etsy Prints</td><td style="padding:6px 10px;color:var(--muted);">first sale within 30 days of listing</td><td style="padding:6px 0 6px 10px;color:var(--muted);"><5 favorites AND 0 sales in 30 days</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">07 Business Advisor</td><td style="padding:6px 10px;color:var(--muted);">LLC filed + setup checklist completed</td><td style="padding:6px 0 6px 10px;color:var(--muted);">not started in 30 days → book a 1-hr CPA instead</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">08 Package Cert</td><td style="padding:6px 10px;color:var(--muted);">10 real shipments certified; 1 paying client</td><td style="padding:6px 0 6px 10px;color:var(--muted);">no real shipment in 60 days</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">09 Hackathons</td><td style="padding:6px 10px;color:var(--muted);">1 submission actually shipped</td><td style="padding:6px 0 6px 10px;color:var(--muted);">none entered within 90 days</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">10 Video Editing</td><td style="padding:6px 10px;color:var(--muted);">10 videos produced at ~50% time saved</td><td style="padding:6px 0 6px 10px;color:var(--muted);">output needs >50% manual rework</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">11 Social Media</td><td style="padding:6px 10px;color:var(--muted);">30 days autonomous posting, engagement ≥ manual</td><td style="padding:6px 0 6px 10px;color:var(--muted);">platform flags/bans OR engagement < ½ manual</td></tr>
+    </table>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:10px;">Same discipline as the Gate 4 rule: hit the kill condition → stop, write down why, move on. No zombie projects.</div>
+  </div>
+
+  <!-- ═══ SECURITY & OPS ═══ -->
+  <div style="background:var(--surface);border:1px solid #f43f5e;border-radius:16px;padding:20px 24px;margin-bottom:16px;">
+    <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Security &amp; Operating Costs — Non-Negotiable Before Gate 3</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Project 01 touches bank data and the lab is reachable over Tailscale. Lock this down before anything runs 24/7:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Security checklist</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.9;">
+          ☐ Tailscale ACLs — devices only reach what they need (phone → Open WebUI, not NAS admin)<br>
+          ☐ Auth on every web UI (Open WebUI login, Flask panels never on 0.0.0.0 without it)<br>
+          ☐ Encryption at rest for finance data + NAS volumes<br>
+          ☐ No port-forwarding, ever — Tailscale only<br>
+          ☐ Separate user/API keys per service; nothing runs as root<br>
+          ☐ Quarterly restore drill on backups (untested backup = no backup)
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Monthly operating cost (est.)</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.9;">
+          Beelink 24/7 (~10W avg): <span style="color:var(--text);">~$1/mo</span><br>
+          Mac Mini 24/7 (~30W avg): <span style="color:var(--text);">~$3/mo</span><br>
+          NAS + drives 24/7 (~45W): <span style="color:var(--text);">~$5/mo</span><br>
+          Cloud backup for irreplaceables (~1TB): <span style="color:var(--text);">~$5–10/mo</span><br>
+          <span style="color:var(--text);font-weight:600;">Full build steady-state: ~$15–20/mo</span> — budget it; the spend tracker only counts purchase price.
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ GATE 0 ═══ -->
@@ -2701,7 +2754,7 @@
         </div>
 
         <div style="margin-top:14px;padding:10px 14px;background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
-          <strong style="color:#38d9c0;">Gate 0 exit criteria:</strong> You've used local AI daily for 2 weeks. You know whether it's useful or a gimmick. If useful → buy the MacBook Pro (Gate 1). If not → you're out ~$336, not $7K. The Beelink stays useful as a Docker host, Plex server, or Pi-hole regardless.
+          <strong style="color:#38d9c0;">Gate 0 exit criteria:</strong> You've used local AI daily for 2 weeks. You know whether it's useful or a gimmick. If useful → buy the MacBook Pro (Gate 1). If not → you're out ~$336, not $7K. The Beelink stays useful as a Docker host, Plex server, or Pi-hole regardless. <em>Set expectations: 7B models run ~5 tok/s on this CPU — fine for chat and overnight batch jobs (the Etsy listings run while you sleep), not for real-time heavy lifting.</em>
         </div>
       </div>
     </div>
@@ -2717,7 +2770,8 @@
       <div style="padding:20px 24px;flex:1;">
         <div style="font-family:var(--mono);font-size:10px;color:#4f8ef7;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Week 0 — Buy Only What You Need Today</div>
         <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:12px;">MacBook Pro 14" M5 Pro 64GB — $3,999</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;">Daily driver regardless. Runs Ollama, pulls models, develops all projects locally. Nothing else gets purchased until Gate 2 is cleared.</div>
+        <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:8px;">Daily driver regardless. Runs Ollama, pulls models, develops all projects locally. Nothing else gets purchased until Gate 2 is cleared.</div>
+        <div style="font-size:12px;color:#4f8ef7;margin-bottom:16px;font-weight:600;">Entry criterion: Gate 0 answered YES with evidence — daily local-AI use for 2 weeks AND one real output shipped from the Beelink (e.g. an Etsy listing live). The box arriving is not the criterion.</div>
 
         <div id="gate1-checklist" style="display:flex;flex-direction:column;gap:8px;">
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
@@ -2764,7 +2818,8 @@
         <div style="font-family:var(--mono);font-size:10px;color:#f43f5e;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:4px;">Weeks 1–2 — Ship ONE Project on MacBook</div>
         <div style="font-size:18px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;">Project 08: Certified Package — Chain of Custody</div>
         <div style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:6px;">Strongest standalone product. Real revenue potential. Solves a documented problem with money attached. Ship an MVP in 2 weeks running entirely on the MacBook.</div>
-        <div style="font-size:12px;color:#f43f5e;margin-bottom:16px;font-weight:600;">Why this first: it's the only project where someone would pay you money. Validate that before building toys.</div>
+        <div style="font-size:12px;color:#f43f5e;margin-bottom:6px;font-weight:600;">Shipping order: Project 06 (Etsy) is already built — get its first listing LIVE before starting P08; it costs $0.20 and tests the market while you build. P08 is the first project where a client pays real money.</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px;">⚠ Scope note: P08's before/after tamper comparison needs a vision model (Qwen-VL class) — slow on CPU-only hardware. MVP here = photos + hashes + timestamps only; defer the vision comparison to Gate 3 (Mac Mini) or cut it.</div>
 
         <div id="gate2-checklist" style="display:flex;flex-direction:column;gap:8px;">
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
