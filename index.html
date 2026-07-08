@@ -2767,6 +2767,23 @@
           </div>
         </div>
 
+        <!-- Hermes Agent experiment -->
+        <div style="margin-top:16px;padding:14px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;">
+          <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">🤖 Experiment — Hermes Agent (always-on assistant in Telegram/WhatsApp)</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+            <a href="https://github.com/NousResearch/hermes-agent" target="_blank" style="color:#38d9c0;">Hermes Agent</a> (MIT, Nous Research) = self-hosted assistant with persistent memory, task scheduling, subagents, and web browsing — living in Telegram, Discord, WhatsApp, Slack, Email, or CLI. It's the "personal assistant" layer several roadmap projects gesture at, already built. Free to try = perfect Gate 0 validation: <em>do you actually use an always-on assistant daily?</em>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Setup on the Beelink (runtime local, model hosted — Path A)</div>
+          <ol style="margin:0 0 10px;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.7;">
+            <li>Install: <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</code></li>
+            <li>Point it at a hosted model (Nous Portal free tier, or any OpenAI-compatible API) — the agent runtime itself is light and runs fine on the N100</li>
+            <li>Connect one channel (Telegram is the easiest bot setup) and give it a recurring task</li>
+          </ol>
+          <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+            <strong style="color:#f43f5e;">Why not fully local yet:</strong> Hermes requires a ≥64K-token context window — an N100 CPU re-processing that every agent turn is minutes-per-reply. Boots, but unusable daily. <strong style="color:#38d9c0;">Gate 1 unlock:</strong> on the 64GB MacBook, point <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">config.yaml</code> at local Ollama (<code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">provider: custom · base_url: http://localhost:11434/v1</code>) with a 30B-class model — fully local, no subscription. Arguably the strongest Gate 1 use case on this page.
+          </div>
+        </div>
+
         <div style="margin-top:14px;padding:10px 14px;background:rgba(56,217,192,0.08);border:1px solid rgba(56,217,192,0.2);border-radius:8px;font-size:12px;color:var(--muted);">
           <strong style="color:#38d9c0;">Gate 0 exit criteria:</strong> You've used local AI daily for 2 weeks. You know whether it's useful or a gimmick. If useful → buy the MacBook Pro (Gate 1). If not → you're out ~$336, not $7K. The Beelink stays useful as a Docker host, Plex server, or Pi-hole regardless. <em>Set expectations: 7B models run ~5 tok/s on this CPU — fine for chat and overnight batch jobs (the Etsy listings run while you sleep), not for real-time heavy lifting.</em>
         </div>
@@ -2807,6 +2824,10 @@
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
             <span>Pull Qwen2.5-VL vision model for Projects 03/05/08</span>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
+            <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
+            <span>Switch Hermes Agent to fully local — <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">provider: custom · base_url: http://localhost:11434/v1</code> + a 30B-class model (64K context fits in 64GB; drops the hosted-model subscription)</span>
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
