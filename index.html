@@ -1302,7 +1302,7 @@
             <div class="arch-arrow">↓</div>
             <div class="arch-node"><span class="node-label">Index</span><span class="node-desc">Face recognition, auto-albums, map view</span></div>
             <div class="arch-arrow">↓</div>
-            <div class="arch-node"><span class="node-label">AI Tag</span><span class="node-desc">LLaVA vision model — describe & tag photos</span></div>
+            <div class="arch-node"><span class="node-label">AI Tag</span><span class="node-desc">gemma3:4b / moondream vision — describe & tag photos (both beat old LLaVA on N100)</span></div>
             <div class="arch-arrow">↓</div>
             <div class="arch-node"><span class="node-label">Access</span><span class="node-desc">Browser / mobile via Tailscale from anywhere</span></div>
           </div>
@@ -2210,7 +2210,7 @@
               <div class="phase-dot">1</div>
               <div>
                 <div class="phase-title">Whisper transcription pipeline</div>
-                <div class="phase-detail">Install whisper.cpp (Apple Silicon optimized). Batch-process video files into timestamped transcripts. This is the foundation — every downstream edit decision uses the transcript.</div>
+                <div class="phase-detail">Install whisper.cpp with <code style="font-family:var(--mono);font-size:10px;">distil-large-v3</code> (6× faster than large-v3, −1% WER) — runs ~3× realtime on the N100 CPU, overnight batch. Or <code style="font-family:var(--mono);font-size:10px;">small</code> for speed. Batch video files into timestamped transcripts. This is the foundation — every downstream edit decision uses the transcript.</div>
               </div>
             </div>
             <div class="phase">
@@ -3316,7 +3316,20 @@
       ollama pull qwen3:7b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># quality workhorse upgrade path from qwen2.5:7b</span><br>
       ollama pull gemma3:2b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># 1.5GB · ~15 tok/s — fastest usable chat on N100</span><br>
       ollama pull deepseek-r1:7b &nbsp;<span style="color:var(--muted);"># distilled reasoning — slow but thinks; overnight jobs</span><br>
-      ollama pull moondream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># ~1.8B vision — QC images far faster than llava:7b</span>
+      ollama pull moondream &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># ~1.8B vision — QC images far faster than llava:7b</span><br>
+      ollama pull gemma4 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># e4b · drop-in gemma3 successor · native vision+audio, same latency</span>
+    </div>
+
+    <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin:16px 0 8px;">Specialist models by job — pick per project</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8;font-family:var(--mono);">
+      ollama pull qwen2.5vl:3b &nbsp;&nbsp;<span style="color:var(--muted);"># Vision (P02 card ID, P-home scanner) — best small OCR/label reader</span><br>
+      ollama pull gemma3:4b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># Vision + 140-lang (kids learning env) · safe-tuned</span><br>
+      ollama pull qwen3-embedding:0.6b <span style="color:var(--muted);"># Embed w/ user-set dims (32→max) · beats nomic on retrieval</span><br>
+      ollama pull bge-m3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># 2026 production RAG default (financial RAG) · pair w/ bge-reranker-v2</span><br>
+      ollama pull qwen3:8b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># Tool-calling / agent (Hermes) — needs 64k ctx, tight on N100; try qwen3:4b first</span>
+    </div>
+    <div style="margin-top:10px;padding:10px 14px;background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.7;">
+      <strong style="color:#818cf8;">Speech-to-text (P10 video) — not Ollama:</strong> install <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">whisper.cpp</code> and run <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">distil-large-v3</code> (6× faster than large-v3, −1% WER) or <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">small</code>. ~3× realtime on N100 CPU — overnight batch, fine for captions. This is the one model class the roadmap was missing.
     </div>
 
     <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin:16px 0 8px;">Hugging Face unlock — 45K+ GGUF models, no registry needed</div>
