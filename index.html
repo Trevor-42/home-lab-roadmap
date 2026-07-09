@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Lab Project Roadmap</title>
-<meta name="description" content="Complete home lab setup guide — hardware costs, wiring diagrams, purchase order, and 11 AI project roadmaps built on Mac Mini + Synology NAS.">
+<meta name="description" content="Complete home lab setup guide — hardware costs, wiring diagrams, purchase order, and 12 AI project roadmaps built on Mac Mini + Synology NAS.">
 <meta property="og:title" content="Home Lab Project Roadmap">
-<meta property="og:description" content="Hardware, costs, wiring diagrams, and 11 AI projects — from financial planning to video editing to social media automation. ~$7K total build.">
+<meta property="og:description" content="Hardware, costs, wiring diagrams, and 12 AI projects — from financial planning to video editing to social media automation. ~$7K total build.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://trevor-42.github.io/home-lab-roadmap/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Home Lab Project Roadmap">
-<meta name="twitter:description" content="Complete home lab setup guide — hardware, wiring, and 11 AI project roadmaps.">
+<meta name="twitter:description" content="Complete home lab setup guide — hardware, wiring, and 12 AI project roadmaps.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖥️</text></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -2434,6 +2434,78 @@
       </div>
     </div>
 
+    <!-- ── PROJECT 12: MEME FACTORY ── -->
+    <div class="project-card" style="--card-accent:#a3e635;">
+      <div class="card-header">
+        <div class="card-icon">😂</div>
+        <div class="card-meta">
+          <div class="card-number">Project 12 — Meme Factory</div>
+          <div class="card-title">AI Meme Generator → Multi-Daily Auto-Posting</div>
+          <div class="card-subtitle">An LLM writes captions onto a meme-template library, Pillow renders them, and a cron queue posts several times a day. No image generation needed — this is the rare content project that runs on the Beelink TODAY. Feeds Project 11's posting infrastructure and builds an audience for the Etsy shop for free.</div>
+        </div>
+        <div class="difficulty-badge">Easy–Moderate</div>
+      </div>
+
+      <div class="card-body" style="margin-top:4px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Templates</span><span class="node-desc">Local library of blank meme formats + a JSON spec per template (text zones, tone, format rules)</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Brain</span><span class="node-desc">phi4-mini / gemma3:2b writes caption pairs from topic seeds (tech, collecting, dad life — your niches)</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Render</span><span class="node-desc">Pillow overlays text — instant, no GPU, same trick as the Etsy kit</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">QC</span><span class="node-desc">moondream checks the render; nomic-embed-text dedups jokes against everything already posted</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Post</span><span class="node-desc">Approve queue in Telegram → cron posts 3–5×/day via official APIs (Bluesky/Mastodon/Reddit easy, X limited free tier, IG needs Graph API)</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Learn</span><span class="node-desc">Engagement per template/topic → SQLite → the brain writes more of what lands</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Template library + render engine</div><div class="phase-detail">~20 blank formats with a JSON spec each (text boxes, font size, tone). Pillow renderer. Test with hand-written captions first — proves the pipeline before any AI.</div></div></div>
+            <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Caption brain</div><div class="phase-detail">Few-shot prompt per template format (each meme format has its own joke grammar). Schema-enforced JSON output, same pattern as the Etsy kit. Batch 50 candidates overnight, keep the best 10.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Human-in-the-loop month</div><div class="phase-detail">Telegram approve/reject queue (or via Hermes Agent). Small-model humor is genuinely mid — approve manually for a month and log what you reject; that log becomes few-shot gold for phase 5.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Auto-posting cron</div><div class="phase-detail">3–5 posts/day, jittered timing (reuse schedule_rollout logic). Start Bluesky + Reddit + Mastodon (easy official APIs), add X free tier, IG last (business account + Graph API).</div></div></div>
+            <div class="phase"><div class="phase-dot">5</div><div><div class="phase-title">Engagement feedback loop</div><div class="phase-detail">Pull likes/shares per post into SQLite. Rank template × topic combos. Feed winners back as few-shot examples — the factory learns your audience's humor.</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Model picks -->
+      <div style="padding:14px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:10px;">Models That Work (all Beelink-sized)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">phi4-mini — caption workhorse (~12 tok/s)</div>
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">gemma3:2b — fast candidate spam (~15 tok/s)</div>
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">llama3.1:8b — distinct comedic voice</div>
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">deepseek-r1:7b — overnight batch brainstorm</div>
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">moondream — render QC (vision, 1.8B)</div>
+          <div style="background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#a3e635;">nomic-embed-text — joke dedup</div>
+        </div>
+      </div>
+
+      <!-- Honest risks -->
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.7;">
+        <strong style="color:#f43f5e;">Eyes open:</strong> ① Small-model humor is mid — the human-approve month is not optional, it's where the quality comes from. ② Meme templates are mostly copyrighted images used under broad tolerance — fine for a shitpost account, riskier the more commercial the account gets. ③ Official APIs only, jittered cadence — bulk-posting patterns get accounts flagged (same anti-spam rule as the Etsy rollout). ④ AI-image memes (generating the picture itself) = Gate 1/cloud, not the N100.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Pillow</div>
+          <div class="stack-tag">Ollama (phi4-mini)</div>
+          <div class="stack-tag">Telegram bot (approve queue)</div>
+          <div class="stack-tag">Bluesky / Reddit / Mastodon APIs</div>
+          <div class="stack-tag">SQLite</div>
+          <div class="stack-tag">cron</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── REFERENCE TOOL ── -->
     <div class="project-card" style="--card-accent:#94a3b8;">
       <div class="card-header">
@@ -2461,7 +2533,7 @@
           <div>
             <div class="section-label">Why It Matters for This Roadmap</div>
             <div style="font-size:12px;color:var(--muted);line-height:1.8;">
-              Build Projects 01–11 faster<br>
+              Build Projects 01–12 faster<br>
               Claude Code understands your code structure<br>
               99.2% token reduction on codebase exploration<br>
               Cross-project awareness as you scale<br>
@@ -2609,6 +2681,7 @@
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">09 Hackathons</td><td style="padding:6px 10px;color:var(--muted);">1 submission actually shipped</td><td style="padding:6px 0 6px 10px;color:var(--muted);">none entered within 90 days</td></tr>
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">10 Video Editing</td><td style="padding:6px 10px;color:var(--muted);">10 videos produced at ~50% time saved</td><td style="padding:6px 0 6px 10px;color:var(--muted);">output needs >50% manual rework</td></tr>
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">11 Social Media</td><td style="padding:6px 10px;color:var(--muted);">30 days autonomous posting, engagement ≥ manual</td><td style="padding:6px 0 6px 10px;color:var(--muted);">platform flags/bans OR engagement < ½ manual</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">12 Meme Factory</td><td style="padding:6px 10px;color:var(--muted);">3+ posts/day for 30 days; engagement trending up; ≥1 post breaks 1K views</td><td style="padding:6px 0 6px 10px;color:var(--muted);">account flagged OR near-zero engagement after 30 days</td></tr>
     </table>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:10px;">Same discipline as the Gate 4 rule: hit the kill condition → stop, write down why, move on. No zombie projects.</div>
