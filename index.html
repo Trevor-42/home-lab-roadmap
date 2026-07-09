@@ -2506,6 +2506,75 @@
       </div>
     </div>
 
+    <!-- ── PROJECT 13 · STAR MAP ── -->
+    <div class="project-card" style="--card-accent:#818cf8;">
+      <div class="card-header">
+        <div class="card-icon">✨</div>
+        <div class="card-meta">
+          <div class="card-number">Project 13 — Custom Star Map</div>
+          <div class="card-title">Personalized Night-Sky Poster → Etsy Digital Download</div>
+          <div class="card-subtitle">Computes the REAL night sky for any date + location and renders a clean vector poster. The pivot away from Pokémon: same kit pattern (data → vector render → LLM copy → bundle) but <strong>IP-clean</strong> — star coordinates are astronomical facts, no trademarks. Personalization is the moat: nobody can dupe-list a customer's specific sky. Built &amp; list-ready today. Repo: <code style="font-family:var(--mono);font-size:11px;">Trevor-42/etsy-starmap</code> (private).</div>
+        </div>
+        <div class="difficulty-badge" style="background:rgba(129,140,248,0.15);border-color:rgba(129,140,248,0.4);color:#818cf8;">✅ Built · Gate 0</div>
+      </div>
+
+      <div class="card-body" style="margin-top:4px;">
+        <div>
+          <div class="section-label">Architecture</div>
+          <div class="arch-flow">
+            <div class="arch-node"><span class="node-label">Catalog</span><span class="node-desc">Open HYG star database (CC BY-SA) → cached bright-star subset (ra, dec, mag). Facts, not IP.</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Compute</span><span class="node-desc">Pure trig — Julian Date → GMST → alt/az for the buyer's exact moment + coordinates. No GPU, no astro lib, runs on the N100.</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Render</span><span class="node-desc">ReportLab vector poster — azimuthal-equidistant projection, magnitude-scaled dots, headline + place + date</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Copy</span><span class="node-desc">Reuse the Etsy kit's Ollama engine (generate_listings) for titles/tags/description</span></div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-node"><span class="node-label">Mockup</span><span class="node-desc">PyMuPDF rasterize → Pillow gallery hero with shadow — upload-ready square PNG</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Build Phases</div>
+          <div class="phases">
+            <div class="phase"><div class="phase-dot" style="background:#818cf8;color:#111;">✓</div><div><div class="phase-title">Star catalog fetch <span style="color:#818cf8;font-size:11px;">— built</span></div><div class="phase-detail">fetch_stars.py pulls HYG, filters by magnitude, caches stars.csv. Regenerable — kept out of the repo.</div></div></div>
+            <div class="phase"><div class="phase-dot" style="background:#818cf8;color:#111;">✓</div><div><div class="phase-title">Astronomy + poster render <span style="color:#818cf8;font-size:11px;">— built</span></div><div class="phase-detail">starmap.py — real sky math + ReportLab render. Proven end-to-end (776 stars, NYC 2020-01-01).</div></div></div>
+            <div class="phase"><div class="phase-dot" style="background:#818cf8;color:#111;">✓</div><div><div class="phase-title">Listing copy + gallery mockup <span style="color:#818cf8;font-size:11px;">— built</span></div><div class="phase-detail">listing_starmap.md (3 titles, 13 tags, description, $9 price) + mockup_starmap.py hero. List-ready.</div></div></div>
+            <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Style variants</div><div class="phase-detail">--style dark / blueprint / minimal-white = more SKUs, same data, zero extra cost.</div></div></div>
+            <div class="phase"><div class="phase-dot">5</div><div><div class="phase-title">Constellation lines + labels</div><div class="phase-detail">Optional overlay — HYG has star names; add a constellation-line dataset for a premium tier.</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why it fits -->
+      <div style="padding:14px 26px;border-top:1px solid var(--border);">
+        <div class="section-label" style="margin-bottom:10px;">Why This One Ships</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ IP-clean — no trademarks, star data is public fact</div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ Personalization moat — each map is one-of-a-kind, un-copyable</div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ Pure trig + vector — no GPU, runs on the N100 today</div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ One command per order = trivial fulfillment</div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ Reuses the Etsy kit's copy/mockup/bundle stages</div>
+          <div style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.25);border-radius:6px;padding:5px 11px;font-size:11px;color:#818cf8;">✦ Proven market — anniversary/wedding gift buying intent</div>
+        </div>
+      </div>
+
+      <!-- Honest note -->
+      <div style="margin:0 26px 16px;padding:12px 16px;background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.7;">
+        <strong style="color:#818cf8;">Only unfinished step:</strong> the listing. Generator works, real data renders, copy written, gallery hero rendered, repo backed up. This is the lowest-risk, most launch-ready product built to date — the one to actually post.
+      </div>
+
+      <div class="stack-section">
+        <div class="stack-label">Stack</div>
+        <div class="stack-tags">
+          <div class="stack-tag">ReportLab (vector PDF)</div>
+          <div class="stack-tag">HYG star database</div>
+          <div class="stack-tag">PyMuPDF + Pillow (mockup)</div>
+          <div class="stack-tag">Ollama (listing copy)</div>
+          <div class="stack-tag">Pure-Python astronomy</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── REFERENCE TOOL ── -->
     <div class="project-card" style="--card-accent:#94a3b8;">
       <div class="card-header">
@@ -2533,7 +2602,7 @@
           <div>
             <div class="section-label">Why It Matters for This Roadmap</div>
             <div style="font-size:12px;color:var(--muted);line-height:1.8;">
-              Build Projects 01–12 faster<br>
+              Build Projects 01–13 faster<br>
               Claude Code understands your code structure<br>
               99.2% token reduction on codebase exploration<br>
               Cross-project awareness as you scale<br>
@@ -2607,6 +2676,7 @@
         <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">Basic social posting pulled forward from P11 — a listing with zero distribution validates nothing</div></div>
         <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">30-day sales data → go/kill decision</div></div>
         <div class="timeline-item"><div class="timeline-dot" style="background:#38d9c0"></div><div class="timeline-item-text">New-set automation (check_new_sets cron)</div></div>
+        <div class="timeline-item"><div class="timeline-dot" style="background:#818cf8"></div><div class="timeline-item-text">Star map (P13) — IP-clean, list-ready, lowest-risk post</div></div>
       </div>
       <div class="timeline-phase">
         <div class="timeline-phase-label">Phase 5b · Parallel — Beelink-native, no gate dependency</div>
@@ -2691,6 +2761,7 @@
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">10 Video Editing</td><td style="padding:6px 10px;color:var(--muted);">10 videos produced at ~50% time saved</td><td style="padding:6px 0 6px 10px;color:var(--muted);">output needs >50% manual rework</td></tr>
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">11 Social Media</td><td style="padding:6px 10px;color:var(--muted);">30 days autonomous posting, engagement ≥ manual</td><td style="padding:6px 0 6px 10px;color:var(--muted);">platform flags/bans OR engagement < ½ manual</td></tr>
       <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">12 Meme Factory</td><td style="padding:6px 10px;color:var(--muted);">3+ posts/day for 30 days; engagement trending up; ≥1 post breaks 1K views</td><td style="padding:6px 0 6px 10px;color:var(--muted);">account flagged OR near-zero engagement after 30 days</td></tr>
+      <tr style="border-top:1px solid var(--border);"><td style="padding:6px 10px 6px 0;color:var(--text);font-weight:600;">13 Star Map</td><td style="padding:6px 10px;color:var(--muted);">listed within 7 days; ≥1 sale in first 30 days</td><td style="padding:6px 0 6px 10px;color:var(--muted);">zero sales after 30 days of live traffic</td></tr>
     </table>
     </div>
     <div style="font-size:11px;color:var(--muted);margin-top:10px;">Same discipline as the Gate 4 rule: hit the kill condition → stop, write down why, move on. No zombie projects.</div>
