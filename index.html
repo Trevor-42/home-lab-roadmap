@@ -2468,7 +2468,7 @@
           <div class="phases">
             <div class="phase"><div class="phase-dot">1</div><div><div class="phase-title">Template library + render engine</div><div class="phase-detail">~20 blank formats with a JSON spec each (text boxes, font size, tone). Pillow renderer. Test with hand-written captions first — proves the pipeline before any AI.</div></div></div>
             <div class="phase"><div class="phase-dot">2</div><div><div class="phase-title">Caption brain</div><div class="phase-detail">Few-shot prompt per template format (each meme format has its own joke grammar). Schema-enforced JSON output, same pattern as the Etsy kit. Batch 50 candidates overnight, keep the best 10.</div></div></div>
-            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Human-in-the-loop month</div><div class="phase-detail">Telegram approve/reject queue (or via Hermes Agent). Small-model humor is genuinely mid — approve manually for a month and log what you reject; that log becomes few-shot gold for phase 5.</div></div></div>
+            <div class="phase"><div class="phase-dot">3</div><div><div class="phase-title">Human-in-the-loop month</div><div class="phase-detail">Telegram approve/reject queue (or via the OpenClaw gateway). Small-model humor is genuinely mid — approve manually for a month and log what you reject; that log becomes few-shot gold for phase 5.</div></div></div>
             <div class="phase"><div class="phase-dot">4</div><div><div class="phase-title">Auto-posting cron</div><div class="phase-detail">3–5 posts/day, jittered timing (reuse schedule_rollout logic). Start Bluesky + Reddit + Mastodon (easy official APIs), add X free tier, IG last (business account + Graph API).</div></div></div>
             <div class="phase"><div class="phase-dot">5</div><div><div class="phase-title">Engagement feedback loop</div><div class="phase-detail">Pull likes/shares per post into SQLite. Rank template × topic combos. Feed winners back as few-shot examples — the factory learns your audience's humor.</div></div></div>
           </div>
@@ -2920,20 +2920,21 @@
           </div>
         </div>
 
-        <!-- Hermes Agent experiment -->
+        <!-- OpenClaw gateway experiment -->
         <div style="margin-top:16px;padding:14px 16px;background:rgba(56,217,192,0.07);border:1px solid rgba(56,217,192,0.2);border-radius:8px;">
-          <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">🤖 Experiment — Hermes Agent (always-on assistant in Telegram/WhatsApp)</div>
+          <div style="font-family:var(--mono);font-size:10px;color:#38d9c0;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">🤖 Experiment — OpenClaw gateway (drive your agents from Telegram/WhatsApp)</div>
           <div style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
-            <a href="https://github.com/NousResearch/hermes-agent" target="_blank" style="color:#38d9c0;">Hermes Agent</a> (MIT, Nous Research) = self-hosted assistant with persistent memory, task scheduling, subagents, and web browsing — living in Telegram, Discord, WhatsApp, Slack, Email, or CLI. It's the "personal assistant" layer several roadmap projects gesture at, already built. Free to try = perfect Gate 0 validation: <em>do you actually use an always-on assistant daily?</em>
+            <a href="https://docs.openclaw.ai" target="_blank" style="color:#38d9c0;">OpenClaw</a> (MIT, Node 24) = self-hosted gateway bridging messaging apps (Telegram, WhatsApp, Signal, iMessage, Slack, Discord, Matrix) → AI coding agents with tool use, sessions, memory, multi-agent routing, and a web dashboard. Chosen over Hermes for this slot: the Beelink-native work is <em>tool/code execution</em> — kick Etsy-kit generators, trigger Meme Factory batches, run git ops and benchmarks from the field — which is OpenClaw's core, not an assistant's memory/scheduling. Free to try = perfect Gate 0 validation: <em>do you actually run your jobs from your phone daily?</em>
           </div>
-          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Setup on the Beelink (runtime local, model hosted — Path A)</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">Setup on the Beelink (gateway local, model = Groq free tier — no Claude API, off the business account)</div>
           <ol style="margin:0 0 10px;padding-left:18px;font-size:12px;color:var(--muted);line-height:1.7;">
-            <li>Install: <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</code></li>
-            <li>Point it at a hosted model (Nous Portal free tier, or any OpenAI-compatible API) — the agent runtime itself is light and runs fine on the N100</li>
-            <li>Connect one channel (Telegram is the easiest bot setup) and give it a recurring task</li>
+            <li>Personal Groq key at <a href="https://console.groq.com/keys" target="_blank" style="color:#38d9c0;">console.groq.com/keys</a> → <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">setx GROQ_API_KEY "gsk_..."</code></li>
+            <li>Install OpenClaw (installer script auto-handles Node 24), then <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">openclaw plugins install @openclaw/groq-provider</code></li>
+            <li>Config <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">~/.openclaw/openclaw.json</code> → <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">model.primary: "groq/openai/gpt-oss-120b"</code> (best Groq tool-caller, 131K ctx), fallback <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">groq/llama-3.1-8b-instant</code></li>
+            <li>Bind gateway to Tailscale (100.123.12.3) only, connect Telegram, scope tool perms — it can run shell on the box</li>
           </ol>
           <div style="font-size:12px;color:var(--muted);line-height:1.7;">
-            <strong style="color:#f43f5e;">Why not fully local yet:</strong> Hermes requires a ≥64K-token context window — an N100 CPU re-processing that every agent turn is minutes-per-reply. Boots, but unusable daily. <strong style="color:#38d9c0;">Gate 1 unlock:</strong> on the 64GB MacBook, point <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">config.yaml</code> at local Ollama (<code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">provider: custom · base_url: http://localhost:11434/v1</code>) with a 30B-class model — fully local, no subscription. Arguably the strongest Gate 1 use case on this page.
+            <strong style="color:#f43f5e;">Why Groq not local:</strong> N100 CPU inference is too slow for agent loops (long-context prefill every turn = minutes-per-reply). Groq does inference at 500+ tok/s free; the Beelink just runs the light gateway. <strong style="color:#f43f5e;">Free-tier ceiling:</strong> gpt-oss-120b caps at 8K TPM / 200K TPD (~4-5 heavy tasks/day) — fine to validate, but daily use hits the wall; flip to Groq Developer tier (~$5-15/mo, personal card) once it's a daily driver. <strong style="color:#38d9c0;">Bonus:</strong> the same gateway becomes Meme Factory's Telegram approve channel — don't build a separate bot. <strong style="color:#38d9c0;">Gate 1 unlock:</strong> on the 64GB MacBook, point a custom provider at local Ollama (<code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:11px;">base_url: http://localhost:11434/v1</code>) with a 30B-class model — fully local, no API at all.
           </div>
         </div>
 
@@ -2980,7 +2981,7 @@
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
-            <span>Switch Hermes Agent to fully local — <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">provider: custom · base_url: http://localhost:11434/v1</code> + a 30B-class model (64K context fits in 64GB; drops the hosted-model subscription)</span>
+            <span>Switch OpenClaw to fully local — custom provider <code style="background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:11px;">base_url: http://localhost:11434/v1</code> + a 30B-class model (64K context fits in 64GB; drops Groq entirely — no API)</span>
           </label>
           <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--text);line-height:1.5;">
             <input type="checkbox" style="margin-top:4px;accent-color:#4f8ef7;width:16px;height:16px;flex-shrink:0;" onchange="updateProgress()">
@@ -3326,7 +3327,7 @@
       ollama pull gemma3:4b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># Vision + 140-lang (kids learning env) · safe-tuned</span><br>
       ollama pull qwen3-embedding:0.6b <span style="color:var(--muted);"># Embed w/ user-set dims (32→max) · beats nomic on retrieval</span><br>
       ollama pull bge-m3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># 2026 production RAG default (financial RAG) · pair w/ bge-reranker-v2</span><br>
-      ollama pull qwen3:8b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># Tool-calling / agent (Hermes) — needs 64k ctx, tight on N100; try qwen3:4b first</span>
+      ollama pull qwen3:8b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--muted);"># Tool-calling / agent (OpenClaw local) — needs 64k ctx, tight on N100; try qwen3:4b first</span>
     </div>
     <div style="margin-top:10px;padding:10px 14px;background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.7;">
       <strong style="color:#818cf8;">Speech-to-text (P10 video) — not Ollama:</strong> install <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">whisper.cpp</code> and run <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">distil-large-v3</code> (6× faster than large-v3, −1% WER) or <code style="background:var(--surface2);padding:1px 5px;border-radius:4px;font-size:10px;">small</code>. ~3× realtime on N100 CPU — overnight batch, fine for captions. This is the one model class the roadmap was missing.
